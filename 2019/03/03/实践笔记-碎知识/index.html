@@ -1,0 +1,53 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="Eynus."><link rel="alternative" href="/atom.xml" title="I am Eynus." type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>实践笔记-碎知识 - I am Eynus.</title><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css"><!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]--><script src="/js/jquery-3.1.1.min.js"></script><script src="/js/fancybox/jquery.fancybox.min.js"></script></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="/">I am Eynus.</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="/archives">カタログ/（目录）</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"><time class="post__time" datetime="2019-03-02T16:27:05.000Z">March 3, 2019</time><h1 class="post__title"><a href="/2019/03/03/实践笔记-碎知识/">实践笔记-碎知识</a></h1><div class="post__main echo"><h1 id="1-CSS"><a href="#1-CSS" class="headerlink" title="1.CSS"></a>1.CSS</h1><h3 id="1-基本属性"><a href="#1-基本属性" class="headerlink" title="1.基本属性"></a>1.基本属性</h3><ol>
+<li><p>input和img是行内元素，为什么还可以设置宽高？</p>
+<p><strong>替换元素一般有内在尺寸，所以具有width和height，可以设定。例如你不指定img的width和height时，就按其内在尺寸显示，也就是图片被保存的时候的宽度和高度。</strong></p>
+<p><strong>对于表单元素，浏览器也有默认的样式，包括宽度和高度。</strong></p>
+</li>
+<li><p>text-alian:left/right/center/justify</p>
+</li>
+<li><p>line-height:比例/px值</p>
+</li>
+<li><p>text-decoration:underline / overline / line-through</p>
+</li>
+<li><p>background-size:cover ——图片充满整个容器</p>
+</li>
+<li><p>字体</p>
+<ol>
+<li>font-family:<ol>
+<li>serif 衬线字体 (古典)</li>
+<li>sans-serif 非衬线字体 </li>
+<li>“微软雅黑” ,“Microsoft Yahei”;</li>
+</ol>
+</li>
+<li>font-weight:默认normal / bold /  值100-900区间</li>
+<li>font-size:inherit继承母元素大小</li>
+</ol>
+</li>
+</ol>
+<h3 id="2-浮动注意事项"><a href="#2-浮动注意事项" class="headerlink" title="2.浮动注意事项"></a>2.<strong>浮动</strong>注意事项</h3><ul>
+<li>注意：<ul>
+<li>浮动元素撞到父级元素的“内壁”或和其他浮动元素摞到一起时才会停止“移动”，如果父级元素的空间不够，它们就另起一行。</li>
+<li><code>fixed</code>或<code>absolute</code>元素不浮动。</li>
+<li><code>inline-block</code>或<code>inline</code>元素在浮动后会变成<code>block</code>元素。(user agent stylesheet)</li>
+<li>未指定宽度的<code>block</code>元素的宽度会根据其内容长度而动态变化。</li>
+<li>一组“正常”的元素中如果有一个元素浮动会发生什么事情？<ul>
+<li>浮动元素脱离文档流，后面的元素依次上移占据该元素空位</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div></header><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a class="post__tag__link" href="/tags/css/">css</a></li><li class="post__tag__item"><a class="post__tag__link" href="/tags/小技巧/">小技巧</a></li></ul></footer></article><section class="reward"><a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="/img/wechat.png" title="微信"></div></section><div class="comments" id="v-container"><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script>new Valine({
+  el: '#v-container',
+  appId: 'OBALSfJMkMbTcVCkNihDqCEu-gzGzoHsz',
+  appKey: 'mdaD2JiJU4lQHSA0nHNRvJOc',
+  avatar: 'retro',
+  lang: 'zh-cn',
+  placeholder: 'balabala~',
+  notify: false,
+  verify: false,
+  pageSize: 20,
+  avatarForce: false,
+  visitor: true,
+  highlight: true
+});</script></div></main><footer class="foot"><div class="foot-copy">&copy; 2019 Eynus.</div></footer><script src="/js/scroller.js"></script><script src="/js/main.js"></script></body></html>

@@ -1,0 +1,825 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="Eynus."><link rel="alternative" href="/atom.xml" title="I am Eynus." type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>表严肃-HTML精髓在于结构 - I am Eynus.</title><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css"><!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]--><script src="/js/jquery-3.1.1.min.js"></script><script src="/js/fancybox/jquery.fancybox.min.js"></script></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="/">I am Eynus.</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="/archives">カタログ/（目录）</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"><time class="post__time" datetime="2019-03-02T14:59:09.000Z">March 2, 2019</time><h1 class="post__title"><a href="/2019/03/02/表严肃-HTML精髓在于结构/">表严肃-HTML精髓在于结构</a></h1><div class="post__main echo"><h1 id="HTML的精髓在于结构。"><a href="#HTML的精髓在于结构。" class="headerlink" title="HTML的精髓在于结构。"></a><strong>HTML的精髓在于结构。</strong></h1><p>尽量从逻辑上分割</p>
+<h2 id="一、基础结构"><a href="#一、基础结构" class="headerlink" title="一、基础结构"></a>一、基础结构</h2><h3 id="1-基础结构：（豆瓣）"><a href="#1-基础结构：（豆瓣）" class="headerlink" title="1.基础结构：（豆瓣）"></a>1.基础结构：（豆瓣）</h3><p>全局导航</p>
+<ol>
+<li>链接组<ul>
+<li>链接*8</li>
+</ul>
+</li>
+<li>链接组</li>
+</ol>
+<p>   链接组</p>
+<ul>
+<li>链接*5</li>
+</ul>
+<p>主体</p>
+<ol>
+<li>页面导航<ol>
+<li>logo</li>
+<li>链接组</li>
+<li>搜索栏</li>
+</ol>
+</li>
+<li>内容<ol>
+<li>内容列表<ol>
+<li>标题</li>
+<li>列表<ol>
+<li>单个item*n<ol>
+<li>投票</li>
+<li>投票内容<ul>
+<li>标题</li>
+<li>内容预览</li>
+<li>元信息</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>小组推荐<ol>
+<li>标题</li>
+<li>列表<ol>
+<li>单个item<ol>
+<li>头像</li>
+<li>文字<ol>
+<li>标题</li>
+<li>元信息</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p>页脚</p>
+<ol>
+<li>元信息</li>
+<li>链接组<ul>
+<li>链接*5</li>
+</ul>
+</li>
+</ol>
+<h4 id="再写一遍-：（豆瓣）"><a href="#再写一遍-：（豆瓣）" class="headerlink" title="再写一遍*：（豆瓣）"></a>再写一遍*：（豆瓣）</h4><p>导航栏 全局</p>
+<ol>
+<li>链接组 左<ul>
+<li>链接*8</li>
+</ul>
+</li>
+<li>链接组 右<ul>
+<li>链接*5</li>
+</ul>
+</li>
+</ol>
+<p>主体</p>
+<ol>
+<li>导航栏 页面<ol>
+<li>logo</li>
+<li>链接组</li>
+<li>搜索栏</li>
+</ol>
+</li>
+<li>内容<ol>
+<li>精选<ol>
+<li>标题</li>
+<li>精选列表<ol>
+<li>单个item*n<ol>
+<li>投票</li>
+<li>投票内容<ul>
+<li>标题</li>
+<li>内容预览</li>
+<li>元信息</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>推荐<ol>
+<li>标题</li>
+<li>推荐列表<ol>
+<li>单个item*n<ol>
+<li>头像</li>
+<li>文字<ol>
+<li>标题</li>
+<li>元信息</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p>页脚</p>
+<ol>
+<li>元信息</li>
+<li>链接组<ul>
+<li>链接*5</li>
+</ul>
+</li>
+</ol>
+<p>总结结构：行/列关系</p>
+<p><img src="C:\Users\Administrator\Desktop\web学习日记\02121.png" alt></p>
+<h3 id="2-基础结构-：（链家）"><a href="#2-基础结构-：（链家）" class="headerlink" title="2.基础结构*：（链家）"></a>2.基础结构*：（链家）</h3><p>行 首屏</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">行 导航栏</span><br><span class="line"></span><br><span class="line">	列  左</span><br><span class="line"></span><br><span class="line">		列	logo </span><br><span class="line"></span><br><span class="line">		列	定位</span><br><span class="line"></span><br><span class="line">	列	右 </span><br><span class="line"></span><br><span class="line">		行	登陆栏</span><br><span class="line"></span><br><span class="line">		行 	链接组</span><br><span class="line"></span><br><span class="line">行	主标题 </span><br><span class="line"></span><br><span class="line">		行	标题</span><br><span class="line"></span><br><span class="line">		行	文字</span><br><span class="line"></span><br><span class="line">行	搜索栏</span><br><span class="line"></span><br><span class="line">		行	分类</span><br><span class="line"></span><br><span class="line">		行	搜索</span><br><span class="line"></span><br><span class="line">行 	声明</span><br><span class="line"></span><br><span class="line">		列	链接*3</span><br></pre></td></tr></table></figure>
+<p>行 主体</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line">行 服务</span><br><span class="line"></span><br><span class="line">	列 item*3 </span><br><span class="line"></span><br><span class="line">		行图片</span><br><span class="line"></span><br><span class="line">		行 文字</span><br><span class="line"></span><br><span class="line">			行 标题</span><br><span class="line"></span><br><span class="line">			行  描述</span><br><span class="line"></span><br><span class="line">行	app推广</span><br><span class="line"></span><br><span class="line">	行	标题	</span><br><span class="line"></span><br><span class="line">	行	文字</span><br><span class="line"></span><br><span class="line">	行	下载</span><br><span class="line"></span><br><span class="line">		列	按钮组</span><br><span class="line"></span><br><span class="line">		列 	二维码</span><br><span class="line"></span><br><span class="line">行	推荐区	二手房推荐</span><br><span class="line"></span><br><span class="line">	行	头部</span><br><span class="line"></span><br><span class="line">		列	左</span><br><span class="line"></span><br><span class="line">			标题</span><br><span class="line"></span><br><span class="line">			副标题</span><br><span class="line"></span><br><span class="line">		列	右</span><br><span class="line"></span><br><span class="line">			链接</span><br><span class="line"></span><br><span class="line">	行 卡片组</span><br><span class="line"></span><br><span class="line">		列 卡片*4</span><br><span class="line"></span><br><span class="line">			行	卡片</span><br><span class="line"></span><br><span class="line">				行	缩略图	</span><br><span class="line"></span><br><span class="line">					价格</span><br><span class="line"></span><br><span class="line">				行 	文字</span><br><span class="line"></span><br><span class="line">					标题</span><br><span class="line"></span><br><span class="line">			行	其他信息</span><br><span class="line"></span><br><span class="line">行	推荐区	小区推荐</span><br><span class="line"></span><br><span class="line">	……</span><br><span class="line"></span><br><span class="line">行	推荐区	新房推荐</span><br><span class="line"></span><br><span class="line">	行</span><br><span class="line"></span><br><span class="line">		列</span><br><span class="line"></span><br><span class="line">			标题</span><br><span class="line"></span><br><span class="line">			副标题</span><br><span class="line"></span><br><span class="line">		列	链接</span><br><span class="line"></span><br><span class="line">	行	卡片组</span><br><span class="line"></span><br><span class="line">		列	卡片*3</span><br><span class="line"></span><br><span class="line">			缩略图</span><br><span class="line"></span><br><span class="line">			标题</span><br><span class="line"></span><br><span class="line">			价格</span><br><span class="line"></span><br><span class="line">行	口号</span><br><span class="line"></span><br><span class="line">	列	左</span><br><span class="line"></span><br><span class="line">		标题</span><br><span class="line"></span><br><span class="line">		副标题</span><br><span class="line"></span><br><span class="line">	列	右</span><br><span class="line"></span><br><span class="line">		描述</span><br><span class="line"></span><br><span class="line">		查询输入</span><br></pre></td></tr></table></figure>
+<p>行 页脚</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">行	</span><br><span class="line"></span><br><span class="line">	列 	 左	链接组</span><br><span class="line"></span><br><span class="line">			链接*6 </span><br><span class="line"></span><br><span class="line">	列	 右	客服信息 </span><br><span class="line"></span><br><span class="line">行	友情链接</span><br><span class="line"></span><br><span class="line">	行	分类</span><br><span class="line"></span><br><span class="line">	行	链接组</span><br><span class="line"></span><br><span class="line">行 元信息</span><br></pre></td></tr></table></figure>
+<h4 id="再写一遍"><a href="#再写一遍" class="headerlink" title="再写一遍"></a>再写一遍</h4><ol>
+<li>行    首屏<ol>
+<li>行    导航栏<ol>
+<li>列    左<ol>
+<li>列    LOGO</li>
+<li>列    定位</li>
+</ol>
+</li>
+<li>列    右<ol>
+<li>行    登陆栏</li>
+<li>行    链接组</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>行    标题<ol>
+<li>主标题</li>
+<li>副标题</li>
+</ol>
+</li>
+<li>行    搜索<ol>
+<li>分类</li>
+<li>搜索框</li>
+</ol>
+</li>
+<li>行    声明<ol>
+<li>链接*4</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>行    主体<ol>
+<li>行    服务<ol>
+<li>列*3<ol>
+<li>行    图片</li>
+<li>行    文字<ol>
+<li>标题</li>
+<li>描述</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>行    app推广<ol>
+<li>行    标题</li>
+<li>行    描述</li>
+<li>行    下载<ol>
+<li>列    左<ol>
+<li>按钮*2</li>
+</ol>
+</li>
+<li>列    右<ol>
+<li>二维码</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>行    推荐*2<ol>
+<li>行    推荐信息<ol>
+<li>列    <ol>
+<li>行    标题</li>
+<li>行    描述</li>
+</ol>
+</li>
+<li>列    链接</li>
+</ol>
+</li>
+<li>行    卡片组<ol>
+<li>列    卡片*4<ol>
+<li>卡片<ol>
+<li>行    <ol>
+<li>缩略图</li>
+<li>价格</li>
+</ol>
+</li>
+<li>行    描述<ol>
+<li>行    标题</li>
+<li>行    房子其他信息</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>其他信息</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>行    卡片组    新房<ol>
+<li>行    推荐信息<ol>
+<li>列    左    <ol>
+<li>标题</li>
+<li>描述</li>
+</ol>
+</li>
+<li>列    右    链接</li>
+</ol>
+</li>
+<li>行    卡片组<ol>
+<li>列    卡片（背景图）*3<ol>
+<li>标题</li>
+<li>价格</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>行    口号<ol>
+<li>列    左<ol>
+<li>标题</li>
+</ol>
+</li>
+<li>列    右<ol>
+<li>承诺</li>
+<li>搜索框</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>行    页脚<ol>
+<li>行    <ol>
+<li>列    左<ol>
+<li>链接组</li>
+</ol>
+</li>
+<li>列    右<ol>
+<li>客服电话</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>行   友情链接<ol>
+<li>分类</li>
+<li>链接组</li>
+</ol>
+</li>
+<li>元信息</li>
+</ol>
+</li>
+</ol>
+<h4 id="英文"><a href="#英文" class="headerlink" title="英文"></a>英文</h4><p>行 r        列 c</p>
+<ol>
+<li>r first-screen<ol>
+<li>r nav<ol>
+<li>c left<ol>
+<li>logo</li>
+<li>location</li>
+</ol>
+</li>
+<li>c right<ol>
+<li>login</li>
+<li>links</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>r title<ol>
+<li>main-title</li>
+<li>sub-title</li>
+</ol>
+</li>
+<li>search<ol>
+<li>types</li>
+<li>search-box</li>
+</ol>
+</li>
+<li>state<ol>
+<li>link*3</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>r main<ol>
+<li>r service<ol>
+<li>c <ol>
+<li>pic</li>
+<li>text<ol>
+<li>title</li>
+<li>desc</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>r app-spread<ol>
+<li>title</li>
+<li>desc</li>
+<li>download<ol>
+<li>c btn*2</li>
+<li>c two-bar-codes</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>r recommend*2<ol>
+<li>r info<ol>
+<li>c left<ol>
+<li>title</li>
+<li>desc</li>
+</ol>
+</li>
+<li>c right <ol>
+<li>link</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>recommend-card<ol>
+<li>c card*4<ol>
+<li>card<ol>
+<li>pic</li>
+<li>price</li>
+<li>title</li>
+<li>other-info</li>
+</ol>
+</li>
+<li>recommend-other</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>r recommend newHouse<ol>
+<li>info<ol>
+<li>c left<ol>
+<li>title</li>
+<li>desc</li>
+</ol>
+</li>
+<li>c right<ol>
+<li>link</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>card*3<ol>
+<li>title</li>
+<li>price</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>r slogan<ol>
+<li>c left</li>
+<li>c right<ol>
+<li>promise</li>
+<li>search</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>r footer<ol>
+<li>r <ol>
+<li>left<ol>
+<li>links</li>
+</ol>
+</li>
+<li>right <ol>
+<li>tel</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>r links<ol>
+<li>type</li>
+<li>links</li>
+</ol>
+</li>
+<li>meta-info</li>
+</ol>
+</li>
+</ol>
+<h3 id="3-基础结构：（小米网站）"><a href="#3-基础结构：（小米网站）" class="headerlink" title="3.基础结构：（小米网站）"></a>3.基础结构：（小米网站）</h3><ol>
+<li><p>行    首屏</p>
+<ol>
+<li>行    导航栏    全局<ol>
+<li>列    左<ol>
+<li>链接*n</li>
+</ol>
+</li>
+<li>列    右<ol>
+<li>链接*n</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>行    导航栏    页面<ol>
+<li>列    <ol>
+<li>logo</li>
+<li>gif</li>
+</ol>
+</li>
+<li>列    链接组<ol>
+<li>链接*n</li>
+</ol>
+</li>
+<li>列    搜索<ol>
+<li>输入框</li>
+<li>按钮</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>行    分类导航<ol>
+<li>列    分类<ol>
+<li>链接*n</li>
+</ol>
+</li>
+<li>列    轮播</li>
+</ol>
+</li>
+<li>行    首屏卡片<ol>
+<li>列    快速通道<ol>
+<li>行*2<ol>
+<li>列*3</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>列*3<ol>
+<li>图</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>行    体</p>
+<ol>
+<li><p>行    分类促销区*n</p>
+<ol>
+<li><p>行</p>
+<ol>
+<li>列    标题</li>
+<li>列    链接</li>
+</ol>
+</li>
+<li><p>行</p>
+<ol>
+<li><p>列    领队</p>
+</li>
+<li><p>列    卡片组</p>
+<ol>
+<li><p>行*2</p>
+<p>列 *3</p>
+<ol>
+<li>卡片    商品<ol>
+<li>行    预览<ol>
+<li>折扣</li>
+<li>图片</li>
+</ol>
+</li>
+<li>行    <ol>
+<li>标题</li>
+<li>描述</li>
+<li>价格</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p>列</p>
+<ol>
+<li>行    卡片<ol>
+<li>列    左<ol>
+<li>标题</li>
+<li>价格</li>
+</ol>
+</li>
+<li>列    右    <ol>
+<li>图片</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>行    卡片<ol>
+<li>列    左<ol>
+<li>标题</li>
+<li>副标题</li>
+</ol>
+</li>
+<li>列    右<ol>
+<li>图标</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>行    脚</p>
+<ol>
+<li>行    售后<ol>
+<li>列*6<ol>
+<li>图标</li>
+<li>文字</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>行    常规链接<ol>
+<li>列<ol>
+<li>列*6<ol>
+<li>标题</li>
+<li>链接组<ol>
+<li>链接*3</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>列    联系方式 <ol>
+<li>电话</li>
+<li>描述</li>
+<li>主按钮</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>行    元信息<ol>
+<li>行<ol>
+<li>列<ol>
+<li>logo</li>
+</ol>
+</li>
+<li>列<ol>
+<li>行 链接组<ol>
+<li>…</li>
+</ol>
+</li>
+<li>行 链接组<ol>
+<li>…</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>行    <ol>
+<li>图*n</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h4 id="再写一遍-1"><a href="#再写一遍-1" class="headerlink" title="再写一遍"></a>再写一遍</h4><ol>
+<li>首屏 row first-screen<ol>
+<li>行 导航栏    全局 row nav global<ol>
+<li>列 左 链接组 col left  link-group<ol>
+<li>链接*n </li>
+</ol>
+</li>
+<li>列 右 col right<ol>
+<li>链接*n</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>行 导航栏 页面 row nav page<ol>
+<li>列 logo</li>
+<li>列 链接组  col link-group</li>
+<li>列 搜索 col search</li>
+</ol>
+</li>
+<li>行 分类导航 row <ol>
+<li>列 分类     col nav cat<ol>
+<li>列 轮播col slider</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>行 首屏卡片 row first-screen-card-group<ol>
+<li>列 col<ol>
+<li>快速通道 shortcut</li>
+</ol>
+</li>
+<li>列*3 col<ol>
+<li>卡片 card</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>体 row main<ol>
+<li>行 分类促销区 闪购 row cat-pro(motion)<ol>
+<li>行 row<ol>
+<li>标题</li>
+<li>链接 更多</li>
+</ol>
+</li>
+<li>行 row<ol>
+<li>列 col<ol>
+<li>行 时间 row</li>
+<li>行 图</li>
+<li>行 距离结束</li>
+<li>行 倒计时</li>
+</ol>
+</li>
+<li>列*4 col<ol>
+<li>行    图 row </li>
+<li>行  文字<ol>
+<li>标题</li>
+<li>描述</li>
+<li>价格</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>行     图片链接</li>
+</ol>
+</li>
+<li>行 分类促销区*n<ol>
+<li>行    <ol>
+<li>标题</li>
+<li>链接 </li>
+</ol>
+</li>
+<li>行<ol>
+<li>列    领队 col leader</li>
+<li>列    卡片组 col card-group<ol>
+<li>行 row<ol>
+<li>列 卡片 商品*4 product</li>
+</ol>
+</li>
+<li>行<ol>
+<li>列*3<ol>
+<li>卡片<ol>
+<li>行<ol>
+<li>折扣 discount</li>
+<li>预览 preview</li>
+</ol>
+</li>
+<li>行<ol>
+<li>标题 title</li>
+<li>描述 desc</li>
+<li>价格price</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>列 <ol>
+<li>行 卡片 row card<ol>
+<li>列 左 left<ol>
+<li>标题 title</li>
+<li>价格 price</li>
+</ol>
+</li>
+<li>列 右 right<ol>
+<li>图片 pic</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>行 卡片 card<ol>
+<li>列 左 left<ol>
+<li>标题 title</li>
+<li>副标题 sub-title</li>
+</ol>
+</li>
+<li>列 右 col right<ol>
+<li>图标 icon</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>行    图片链接</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>脚row footer<ol>
+<li>行 售后 row support<ol>
+<li>链接*6<ol>
+<li>图标 icon</li>
+<li>文字 text</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>行 常规链接 row regular<ol>
+<li>列 左 col left<ol>
+<li>列*6<ol>
+<li>行 标题 title</li>
+<li>行 链接*3 link-group</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>列 右 联系方式 contact<ol>
+<li>行 电话 tel</li>
+<li>行 描述 desc</li>
+<li>行 主按钮 primary btn</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>行 元信息 row meta<ol>
+<li>行 row<ol>
+<li>列 col<ol>
+<li>logo</li>
+</ol>
+</li>
+<li>列 col<ol>
+<li>行 row<ol>
+<li>链接组 link-group</li>
+</ol>
+</li>
+<li>行 row<ol>
+<li>链接组 link-group</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>行 row<ol>
+<li>图*5</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h4 id="第三遍"><a href="#第三遍" class="headerlink" title="第三遍"></a>第三遍</h4><p>行    导航栏</p>
+<p>行    首屏</p>
+<p>行    主体</p>
+<p>行    页脚</p>
+<h2 id="二、结构在HTML的体现"><a href="#二、结构在HTML的体现" class="headerlink" title="二、结构在HTML的体现"></a>二、结构在HTML的体现</h2><p>你所写的这些结构就造成了className,不过是英文版（html类只认英文）</p>
+<p>重要的模块命名最好语义化一点，item适合小细节或者边边角角</p>
+<p>一般不要直接用标题名，看本质</p>
+<p><img src="/img/06.png" alt></p>
+<h3 id="HTML教程"><a href="#HTML教程" class="headerlink" title="HTML教程"></a>HTML教程</h3><p>1.title也是搜索引擎搜索的结果</p>
+<p>2.h1只能有一个（一个页面中</p>
+<p>3.div最大功能：容纳其他元素</p>
+<p>4.href:hyper text reference</p>
+<p>5.img:alt的作用-图挂了会显示这是啥</p>
+<p>6.abbr:abbreviation 缩写</p>
+<p>7.code(行内元素) prew(block标签)</p>
+</div></header><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a class="post__tag__link" href="/tags/表严肃/">表严肃</a></li><li class="post__tag__item"><a class="post__tag__link" href="/tags/html/">html</a></li></ul></footer></article><section class="reward"><a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="/img/wechat.png" title="微信"></div></section><div class="comments" id="v-container"><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script>new Valine({
+  el: '#v-container',
+  appId: 'OBALSfJMkMbTcVCkNihDqCEu-gzGzoHsz',
+  appKey: 'mdaD2JiJU4lQHSA0nHNRvJOc',
+  avatar: 'retro',
+  lang: 'zh-cn',
+  placeholder: 'balabala~',
+  notify: false,
+  verify: false,
+  pageSize: 20,
+  avatarForce: false,
+  visitor: true,
+  highlight: true
+});</script></div></main><footer class="foot"><div class="foot-copy">&copy; 2019 Eynus.</div></footer><script src="/js/scroller.js"></script><script src="/js/main.js"></script></body></html>
