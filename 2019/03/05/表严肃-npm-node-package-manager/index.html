@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="Eynus."><link rel="alternative" href="/atom.xml" title="I am Eynus." type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>表严肃-node package manager - I am Eynus.</title><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css"><!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]--><script src="/js/jquery-3.1.1.min.js"></script><script src="/js/fancybox/jquery.fancybox.min.js"></script></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="/">I am Eynus.</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="/archives">カタログ/（目录）</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"><time class="post__time" datetime="2019-03-05T03:24:37.000Z">March 5, 2019</time><h1 class="post__title"><a href="/2019/03/05/表严肃-npm-node-package-manager/">表严肃-node package manager</a></h1><div class="post__main echo"><h1 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h1><blockquote>
+<p>node是npm的运行环境。所以安装node,自带安装了npm。</p>
+<p>node是联系Javascript和操作系统的桥梁。</p>
+</blockquote>
+<h1 id="NPM"><a href="#NPM" class="headerlink" title="NPM"></a>NPM</h1><p>自己封装各种压缩的包 ==&gt;    CDN找代码 ===&gt; 一个被依赖的包需要更新，你手动更新后，万一影响后面的包 ？</p>
+<p>所有有了<code>npm</code>:</p>
+<p>包管理工具。<strong>帮你把代码download下来</strong>并<strong>管理包与包之间的关系</strong>。(以防出现一个包更新，依赖他的包挂了的情况)</p>
+<p>安装后可以通过<code>npm -v</code> <code>node -v</code>查看版本</p>
+<h2 id="更新自己"><a href="#更新自己" class="headerlink" title="更新自己"></a>更新自己</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install npm@latest -g</span><br></pre></td></tr></table></figure>
+<h2 id="下载依赖"><a href="#下载依赖" class="headerlink" title="下载依赖"></a>下载依赖</h2><ul>
+<li><h3 id="以前的做法"><a href="#以前的做法" class="headerlink" title="以前的做法"></a>以前的做法</h3><p>CDN引用在线资源或者下载到本地，在script或者link填写src</p>
+</li>
+<li><h3 id="npm的做法"><a href="#npm的做法" class="headerlink" title="npm的做法"></a>npm的做法</h3><p><strong>shell：</strong></p>
+<p><code>cd 文件目录</code></p>
+<p><code>npm init y</code> #初始化，并且yes，完成后会多一个json文件保存依赖信息；如果不写y会问很多问题，包名、版本、描述、入口文件..</p>
+<p><code>npm install [你想要的资源，比如jquery]</code>  #执行之后，项目下生成node_modules,下面就是资源文件</p>
+<p><code>npm uninstall [你想卸载的资源，比如bootstrap]</code></p>
+</li>
+</ul>
+<blockquote>
+<p>1.此时src直接填写资源地址即可，‘node_modules/jquery…..’</p>
+<p>2.每次安装，会在package.json写入相关依赖信息(有版本号)，即使把node_modules删掉，仍然可以命令“npm install [回车]”来安装这些依赖到node_modules</p>
+<p>3.老版本“–save”来保存到json中，现在不需要</p>
+<p>4.更新:npm update [目标资源]</p>
+<p>5.安装旧版本： npm i [目标资源]@版本号</p>
+<p>6.开发环境下的依赖：npm i [目标资源] –save-dev </p>
+</blockquote>
+  <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"test"</span>,</span><br><span class="line">  <span class="attr">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">  <span class="attr">"description"</span>: <span class="string">""</span>,</span><br><span class="line">  <span class="attr">"main"</span>: <span class="string">"index.js"</span>,</span><br><span class="line">  "scripts": &#123;//命令的快捷方式</span><br><span class="line">    "test": "echo \"Error: no test specified\" &amp;&amp; exit 1",</span><br><span class="line">   </span><br><span class="line">     "Yo": "echo \"Yo.\""     //比如可以这样自定义，然后 npm Yo 就会跑后面的</span><br><span class="line">  &#125;,</span><br><span class="line">  "keywords": [],</span><br><span class="line">  "author": "",</span><br><span class="line">  "license": "ISC",</span><br><span class="line">  "dependencies": &#123;</span><br><span class="line">    "jquery": "^3.3.1",//这些是使用npm install [资源] 后自动添加的依赖</span><br><span class="line">    "vue": "^2.6.8"</span><br><span class="line">  &#125;,</span><br><span class="line">   "devDependencies": &#123; //开发环境的依赖</span><br><span class="line">    "webpack": "^4.29.6"</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="npm常用命令速查表"><a href="#npm常用命令速查表" class="headerlink" title="npm常用命令速查表"></a>npm常用命令速查表</h1><p><strong>注：</strong></p>
+<p>在npm中，包（package）、模块（module）、依赖（dependency）说的都是一回事儿。</p>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><ul>
+<li><code>npm init</code> 初始化项目，其实就是创建一个<code>package.json</code>文件。</li>
+<li><code>npm install</code> 安装所有项目依赖。</li>
+<li><code>npm help xxx</code> 查看<code>xxx</code>命令的帮助信息。</li>
+</ul>
+<h3 id="npm-search-搜索（快捷方式：find-s）"><a href="#npm-search-搜索（快捷方式：find-s）" class="headerlink" title="npm search 搜索（快捷方式：find, s）"></a><code>npm search</code> 搜索（快捷方式：<code>find</code>, <code>s</code>）</h3><ul>
+<li><code>xxx</code> 搜索<code>xxx</code> 如：<code>npm search jquery</code>。</li>
+</ul>
+<h3 id="npm-install-安装-（快捷方式：i）"><a href="#npm-install-安装-（快捷方式：i）" class="headerlink" title="npm install 安装 （快捷方式：i）"></a><code>npm install</code> 安装 （快捷方式：<code>i</code>）</h3><ul>
+<li><code>xxx</code> 搜索并安装xxx（局部）。安装多个依赖可用空格分割，如<code>npm i jquery bootstrap</code>。</li>
+<li><code>xxx -g</code> 搜索并安装xxx（全局）。安装多个同上。</li>
+<li><code>xxx -D</code> 安装并将依赖信息写在<code>package.json</code>中的<code>devDependencies</code>中。</li>
+<li>快捷方式 <code>i</code>均可，如<code>npm i jquery</code>。</li>
+<li><code>xxx@版本号</code> 指定需要安装的版本号，若不指定将安装最新的稳定版本。</li>
+</ul>
+<h3 id="npm-uninstall-卸载（快捷方式：rm-r）"><a href="#npm-uninstall-卸载（快捷方式：rm-r）" class="headerlink" title="npm uninstall 卸载（快捷方式：rm, r）"></a><code>npm uninstall</code> 卸载（快捷方式：<code>rm</code>, <code>r</code>）</h3><ul>
+<li><code>xxx</code> 卸载xxx。多个依赖可用空格分割。</li>
+<li><code>xxx -D</code> 卸载xxx，并将依赖信息从<code>package.json</code>中的<code>devDependencies</code>中清除。</li>
+</ul>
+<h3 id="npm-list-列出已安装依赖（快捷方式：ls）"><a href="#npm-list-列出已安装依赖（快捷方式：ls）" class="headerlink" title="npm list 列出已安装依赖（快捷方式：ls）"></a><code>npm list</code> 列出已安装依赖（快捷方式：<code>ls</code>）</h3><ul>
+<li>默认列出局部依赖。</li>
+<li><code>npm list -g</code> 列出已安装的全局依赖。</li>
+</ul>
+<h3 id="npm-outdated-检查过期依赖"><a href="#npm-outdated-检查过期依赖" class="headerlink" title="npm outdated 检查过期依赖"></a><code>npm outdated</code> 检查过期依赖</h3><h3 id="npm-update-更新依赖（快捷方式：up）"><a href="#npm-update-更新依赖（快捷方式：up）" class="headerlink" title="npm update 更新依赖（快捷方式：up）"></a><code>npm update</code> 更新依赖（快捷方式：<code>up</code>）</h3><ul>
+<li><code>xxx</code> 局部更新xxx。</li>
+<li><code>xxx -g</code> 全局更新xxx。</li>
+</ul>
+<h3 id="npm-root-查看依赖安装路径（也就是node-modules的路径）"><a href="#npm-root-查看依赖安装路径（也就是node-modules的路径）" class="headerlink" title="npm root 查看依赖安装路径（也就是node_modules的路径）"></a><code>npm root</code> 查看依赖安装路径（也就是<code>node_modules</code>的路径）</h3><ul>
+<li>默认查看局部安装路径。</li>
+<li><code>-g</code> 查看全局安装路径。</li>
+</ul>
+<h3 id="npm-view-查看模块的注册信息"><a href="#npm-view-查看模块的注册信息" class="headerlink" title="npm view 查看模块的注册信息"></a><code>npm view</code> 查看模块的注册信息</h3><ul>
+<li><code>xxx versions</code> 列出<code>xxx</code>的所有版本， 如：<code>npm view jquery versions</code>。</li>
+<li><code>xxx dependencies</code> 列出<code>xxx</code>的所有依赖， 如：<code>npm view gulp dependencies</code>。</li>
+</ul>
+</div></header><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a class="post__tag__link" href="/tags/表严肃/">表严肃</a></li><li class="post__tag__item"><a class="post__tag__link" href="/tags/npm/">npm</a></li></ul></footer></article><section class="reward"><a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="/img/wechat.png" title="微信"></div></section><div class="comments" id="v-container"><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script>new Valine({
+  el: '#v-container',
+  appId: 'OBALSfJMkMbTcVCkNihDqCEu-gzGzoHsz',
+  appKey: 'mdaD2JiJU4lQHSA0nHNRvJOc',
+  avatar: 'retro',
+  lang: 'zh-cn',
+  placeholder: 'balabala~',
+  notify: false,
+  verify: false,
+  pageSize: 20,
+  avatarForce: false,
+  visitor: true,
+  highlight: true
+});</script></div></main><footer class="foot"><div class="foot-copy">&copy; 2019 Eynus.</div></footer><script src="/js/scroller.js"></script><script src="/js/main.js"></script></body></html>
