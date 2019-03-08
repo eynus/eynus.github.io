@@ -9,17 +9,29 @@
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//score.js</span></span><br><span class="line">Score.prototype.update = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.milsec += game.updateTime;</span><br><span class="line">    <span class="keyword">if</span>( <span class="keyword">this</span>.milsec &gt; <span class="number">1000</span>)&#123;</span><br><span class="line">        <span class="keyword">this</span>.time--;</span><br><span class="line">        <span class="keyword">this</span>.milsec -= <span class="number">1000</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>( <span class="keyword">this</span>.time &lt;= <span class="number">0</span>)&#123;</span><br><span class="line">        game.SM.enter(<span class="number">3</span>);<span class="comment">//  &lt;==</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//index.html</span></span><br><span class="line">        <span class="keyword">var</span> game = &#123;&#125;;</span><br><span class="line">        game.SM= <span class="keyword">new</span> SceneManager();<span class="comment">//  &lt;==</span></span><br><span class="line">        game.updateTime = <span class="number">20</span>;</span><br><span class="line">        game.timer = setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            game.SM.update();</span><br><span class="line">            game.SM.render();</span><br><span class="line">        &#125;,game.updateTime);</span><br><span class="line"><span class="comment">//sceneManager.js</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SceneManager</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="3-音乐播放器相关-直播后总结"><a href="#3-音乐播放器相关-直播后总结" class="headerlink" title="3.音乐播放器相关(直播后总结)"></a>3.音乐播放器相关(直播后总结)</h3><ol>
-<li>切歌时，src也可以是相对地址</li>
-<li>加载好资源之后，先load，再play()</li>
-<li>切歌时，获取资源需要加载完成才能获取到，那么资源变化放在哪里监听？<ol>
+<li><p>背景图片正好充满一整屏幕</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">html</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>:<span class="number">100%</span>;<span class="attribute">height</span>:<span class="number">100%</span>;<span class="comment">/*设置html大小为一个屏幕大小 ，考虑到电脑大小不一样*/</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">body</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>:<span class="number">100%</span>;<span class="attribute">height</span>:<span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">background-size</span>:cover;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>事件中：e.clientX:鼠标距离窗口最左侧距离; xx.offsetWidth:元素本身宽度,是个数值;xx.style.width是str.</p>
+</li>
+<li><p>鼠标抬起时<code>document.body.onmouseup=null</code>的原因:事件会冒泡。<code>playBtn.onmouseup</code>触发时会冒泡到document.body，会一起执行<code>document.body.onmouseup=null</code>的操作。所以需要及时清除body上的事件。</p>
+</li>
+<li><p>切歌时，src也可以是相对地址</p>
+</li>
+<li><p>加载好资源之后，先load，再play()</p>
+</li>
+<li><p>切歌时，获取资源需要加载完成才能获取到，那么资源变化放在哪里监听？</p>
+<ol>
 <li>window.onload 加载dom文档，但就触发一次，切歌不会出发onload</li>
 <li>oncanplay 可以，但是在拖拽进度条也会触发</li>
 <li>onloadedmetadata 资源的原始数据加载完成之后触发</li>
-<li>我用的是ondurationchange</li>
+<li>我用的是ondurationchange,正常网络请求没问题，但是本地，资源加载比较快比js还快，js检测不到duration变化的可能。</li>
 </ol>
 </li>
-<li>切歌时，先要清空计时器</li>
-<li>优化，创建bindEvent方法可以专门存储事件，初始化时执行一次。</li>
+<li><p>切歌时，先要清空计时器</p>
+</li>
+<li><p>优化，创建bindEvent方法可以专门存储事件，初始化时执行一次。</p>
+</li>
 </ol>
 </div></header><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a class="post__tag__link" href="/tags/实践笔记/">实践笔记</a></li><li class="post__tag__item"><a class="post__tag__link" href="/tags/js/">js</a></li><li class="post__tag__item"><a class="post__tag__link" href="/tags/this/">this</a></li><li class="post__tag__item"><a class="post__tag__link" href="/tags/protype/">protype</a></li></ul></footer></article><section class="reward"><a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="/img/wechat.png" title="微信"></div></section><div class="comments" id="v-container"><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script>new Valine({
   el: '#v-container',

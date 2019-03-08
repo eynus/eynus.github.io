@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="Eynus."><link rel="alternative" href="/atom.xml" title="I am Eynus." type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>h5-鼠标拖放drag&amp;drop - I am Eynus.</title><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css"><!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]--><script src="/js/jquery-3.1.1.min.js"></script><script src="/js/fancybox/jquery.fancybox.min.js"></script></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="/">I am Eynus.</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="/archives">カタログ/（目录）</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"><time class="post__time" datetime="2019-03-08T08:10:27.000Z">March 8, 2019</time><h1 class="post__title"><a href="/2019/03/08/h5-鼠标拖放drag-drop/">h5-鼠标拖放drag&amp;drop</a></h1><div class="post__main echo"><h1 id="Drap和Drop拖放操作"><a href="#Drap和Drop拖放操作" class="headerlink" title="Drap和Drop拖放操作"></a>Drap和Drop拖放操作</h1><h2 id="1-拖放元素"><a href="#1-拖放元素" class="headerlink" title="1.拖放元素"></a>1.拖放元素</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">draggable</span>=<span class="string">"true"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="comment">&lt;!--需要设置元素可以被拖拽--&gt;</span></span><br></pre></td></tr></table></figure>
+<p>有以下事件：</p>
+<table>
+<thead>
+<tr>
+<th>事件</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dragstart</td>
+<td>被拖放元素开始被拖拽时触发</td>
+</tr>
+<tr>
+<td>drag</td>
+<td>被拖放元素在拖拽过程中触发</td>
+</tr>
+<tr>
+<td>dragend</td>
+<td>被拖放元素拖拽完成时触发</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-被拖放元素"><a href="#2-被拖放元素" class="headerlink" title="2.被拖放元素"></a>2.被拖放元素</h2><table>
+<thead>
+<tr>
+<th>事件</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dragenter</td>
+<td>拖放元素进入目标元素时(以鼠标位置是否进入为准)</td>
+</tr>
+<tr>
+<td>dragover</td>
+<td>拖放元素在目标元素上时</td>
+</tr>
+<tr>
+<td>dragleave</td>
+<td>拖放元素在目标元素上离开时</td>
+</tr>
+<tr>
+<td>drop</td>
+<td>拖放元素在目标元素上同时鼠标放开时触发(e.g 文件上传/拖动删除,需要同时取消dragover默认事件)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-存储数据：DataTransfer对象"><a href="#3-存储数据：DataTransfer对象" class="headerlink" title="3.存储数据：DataTransfer对象"></a>3.存储数据：DataTransfer对象</h2><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>getData()</td>
+<td>从DataTransfer对象读取数据</td>
+</tr>
+<tr>
+<td>setData()</td>
+<td>向DataTransfer对象存放数据</td>
+</tr>
+</tbody>
+</table>
+<p>举例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    e.dataTransfer.setData(<span class="string">'id'</span>,ID);<span class="comment">//存入数据</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    e.dataTransfer.getData(<span class="string">'id'</span>);	<span class="comment">//读取数据</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</div></header><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a class="post__tag__link" href="/tags/html/">html</a></li></ul></footer></article><section class="reward"><a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="/img/wechat.png" title="微信"></div></section><div class="comments" id="v-container"><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script>new Valine({
+  el: '#v-container',
+  appId: 'OBALSfJMkMbTcVCkNihDqCEu-gzGzoHsz',
+  appKey: 'mdaD2JiJU4lQHSA0nHNRvJOc',
+  avatar: 'retro',
+  lang: 'zh-cn',
+  placeholder: 'balabala~',
+  notify: false,
+  verify: false,
+  pageSize: 20,
+  avatarForce: false,
+  visitor: true,
+  highlight: true
+});</script></div></main><footer class="foot"><div class="foot-copy">&copy; 2019 Eynus.</div></footer><script src="/js/scroller.js"></script><script src="/js/main.js"></script></body></html>
