@@ -1,0 +1,50 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="Eynus."><link rel="alternative" href="/atom.xml" title="I am Eynus." type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>h5-Worker多线程 - I am Eynus.</title><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css"><!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]--><script src="/js/jquery-3.1.1.min.js"></script><script src="/js/fancybox/jquery.fancybox.min.js"></script></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="/">I am Eynus.</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="/archives">カタログ/（目录）</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"><time class="post__time" datetime="2019-03-09T10:28:14.000Z">March 9, 2019</time><h1 class="post__title"><a href="/2019/03/09/h5-Worker多线程/">h5-Worker多线程</a></h1><div class="post__main echo"><h3 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h3><p>可以运行异步JavaScript代码，避免阻塞用户界面。有利于执行复杂计算和数据处理。</p>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>大型数据运算、计时器、异步请求、访问navigator部分属性、获取js核心对象</p>
+<h3 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h3><ol>
+<li>不能访问dom(否则其异步特性会造成混乱)</li>
+<li>不能跨域请求</li>
+</ol>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><blockquote>
+<p>worker只支持网络文件(有域名)，不支持本地文件——&gt; 本地测试需要搭建虚拟网络环境</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//main.js-主线程</span></span><br><span class="line"><span class="keyword">var</span> worker = <span class="keyword">new</span> Worker(<span class="string">'myWorker.js'</span>);</span><br><span class="line">worker.postMessage(data);</span><br><span class="line">worker.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(e.data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//myWorker.js-子线程 **worker文件里面的self,this都是worker**</span></span><br><span class="line">self.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> data = e.data;</span><br><span class="line">    <span class="comment">//...处理数据,比如将结果存到val...</span></span><br><span class="line">    </span><br><span class="line">    postMessage(val);<span class="comment">//传送到主线程中</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Worker全局作用域"><a href="#Worker全局作用域" class="headerlink" title="Worker全局作用域"></a>Worker全局作用域</h3><blockquote>
+<p>1.worker所执行的js在另一个作用域中，与当前网页的代码(主线程)不在一个作用域中，且不能访问DOM.</p>
+<p>2.Web Worker中的全局对象是worker本身，在其作用域中this和self都是worker</p>
+<p>3.worker子线程与主线程的通信方式：一方调用postMessage(data)异步触发另一方的message事件接收数据</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>worker与页面通信的方式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>onmessage</td>
+<td>响应主线程的postMessage，数据存放在e.data</td>
+</tr>
+<tr>
+<td>onerror</td>
+<td>worker不能完成给定的任务时触发</td>
+</tr>
+</tbody>
+</table>
+<h3 id="停止工作"><a href="#停止工作" class="headerlink" title="停止工作"></a>停止工作</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//myWorker.js 子线程主动停止：主动辞职</span></span><br><span class="line">self.close();</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//main.js	主线程将子线程终止：炒鱿鱼</span></span><br><span class="line">worker.terminate();</span><br></pre></td></tr></table></figure>
+</div></header><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a class="post__tag__link" href="/tags/h5/">h5</a></li><li class="post__tag__item"><a class="post__tag__link" href="/tags/html/">html</a></li></ul></footer></article><section class="reward"><a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="/img/wechat.png" title="微信"></div></section><div class="comments" id="v-container"><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script>new Valine({
+  el: '#v-container',
+  appId: 'OBALSfJMkMbTcVCkNihDqCEu-gzGzoHsz',
+  appKey: 'mdaD2JiJU4lQHSA0nHNRvJOc',
+  avatar: 'retro',
+  lang: 'zh-cn',
+  placeholder: 'balabala~',
+  notify: false,
+  verify: false,
+  pageSize: 20,
+  avatarForce: false,
+  visitor: true,
+  highlight: true
+});</script></div></main><footer class="foot"><div class="foot-copy">&copy; 2019 Eynus.</div></footer><script src="/js/scroller.js"></script><script src="/js/main.js"></script></body></html>

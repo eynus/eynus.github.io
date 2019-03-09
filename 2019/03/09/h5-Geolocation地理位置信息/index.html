@@ -1,0 +1,117 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="Eynus."><link rel="alternative" href="/atom.xml" title="I am Eynus." type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>h5-Geolocation地理位置信息 - I am Eynus.</title><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css"><!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]--><script src="/js/jquery-3.1.1.min.js"></script><script src="/js/fancybox/jquery.fancybox.min.js"></script></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="/">I am Eynus.</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="/archives">カタログ/（目录）</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"><time class="post__time" datetime="2019-03-09T07:11:53.000Z">March 9, 2019</time><h1 class="post__title"><a href="/2019/03/09/h5-Geolocation地理位置信息/">h5-Geolocation地理位置信息</a></h1><div class="post__main echo"><h1 id="Geolocation地理位置信息"><a href="#Geolocation地理位置信息" class="headerlink" title="Geolocation地理位置信息"></a>Geolocation地理位置信息</h1><blockquote>
+<p>(实际看浏览器内部实现方式)以下仅指理论上</p>
+</blockquote>
+<h3 id="获取当前地理位置"><a href="#获取当前地理位置" class="headerlink" title="获取当前地理位置"></a>获取当前地理位置</h3> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//window.navigator.geolocation对象，返回经纬坐标等元数据</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//获取当前地理位置**(获取谷歌浏览器的地理位置信息需要翻墙)**</span></span><br><span class="line">navigator.geolocation.getCurrentPositon(suc,err,obj)</span><br><span class="line"></span><br><span class="line"><span class="comment">//参数1：suc——成功回调函数，</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">suc</span>(<span class="params">position</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(positon.coords.latitude,positon.coords.longitude)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//当返回成功之后，返回一个position对象，里面的属性coords里面有：</span></span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>属性(它们在coords对象下)</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>accuracy</td>
+<td>经纬度的精度</td>
+</tr>
+<tr>
+<td>altitude:null</td>
+<td>海拔</td>
+</tr>
+<tr>
+<td>altitudeAccuracy:null</td>
+<td>设备前进方向</td>
+</tr>
+<tr>
+<td><strong>latitude</strong>:34.0653347</td>
+<td>纬度</td>
+</tr>
+<tr>
+<td><strong>longitude</strong>:-118.24389099999999</td>
+<td>经度</td>
+</tr>
+<tr>
+<td>speed:null</td>
+<td>设备前进速度</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>获取地理位置信息的时间</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//参数2：err——失败回调</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">err</span>(<span class="params">positionError</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(positionError);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//有参数error对象，属性如下：</span></span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td>1.用户拒绝位置服务</td>
+</tr>
+<tr>
+<td></td>
+<td>2.获取不到位置信息</td>
+</tr>
+<tr>
+<td></td>
+<td>3.获取信息超时</td>
+</tr>
+<tr>
+<td>message</td>
+<td>错误信息字符串</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//参数3：obj可选参数</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">timeout</span>:<span class="number">1000</span>&#125;<span class="comment">//作为第三个参数传入getCurrentPosition</span></span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>enableHighAccuracy</td>
+<td>是否要求高精度的地理位置信息(鸡肋)</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>超时限制</td>
+</tr>
+<tr>
+<td>maximumAge</td>
+<td>缓存有效时间，期间内返回该缓存时间，若为0则重新获取新地理位置信息</td>
+</tr>
+</tbody>
+</table>
+<h3 id="监事位置信息"><a href="#监事位置信息" class="headerlink" title="监事位置信息"></a>监事位置信息</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> id = navigator.geolocation.watchPosition(suc,err,obj);</span><br><span class="line"><span class="comment">//持续定期的自动获取用户的当前地理位置信息，并同计时器一样有个位置标识：用于取消</span></span><br><span class="line"><span class="comment">//与getCurrentPositon区别：左边获取一次。这个是定期的自动的获取，大概几秒一次</span></span><br></pre></td></tr></table></figure>
+<h3 id="停止获取位置信息"><a href="#停止获取位置信息" class="headerlink" title="停止获取位置信息"></a>停止获取位置信息</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">navigator.geolocation.clearWatch(id);</span><br></pre></td></tr></table></figure>
+<h4 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h4><blockquote>
+<p>1.自己的电脑需要打开定位权限(win10)(坑爹==)</p>
+<p>2.获取定位信息有时候会失败是因为geolocation只是获取地理位置信息的API,具体实现是由浏览器底层来实现的，就像网页打开获取信息有时失败是正常的。</p>
+<p>3.火狐和谷歌的服务器都在国外，所以获取服务器下的地理位置信息需要翻墙。</p>
+<p>4.这一点上，IE挺好用的</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment">//结合百度API</span></span><br><span class="line">&gt;      <span class="keyword">var</span> loca_x, loca_y;</span><br><span class="line">&gt; </span><br><span class="line">&gt;         navigator.geolocation.getCurrentPosition(suc, err);</span><br><span class="line">&gt;         <span class="function"><span class="keyword">function</span> <span class="title">suc</span>(<span class="params">position</span>) </span>&#123;</span><br><span class="line">&gt;             <span class="built_in">console</span>.log(<span class="string">"yoooo~~~"</span>);</span><br><span class="line">&gt;             <span class="built_in">console</span>.log(position.coords.latitude, position.coords.longitude);</span><br><span class="line">&gt;             map(position.coords.latitude, position.coords.longitude);</span><br><span class="line">&gt;         &#125;</span><br><span class="line">&gt;         <span class="function"><span class="keyword">function</span> <span class="title">err</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">&gt;             <span class="built_in">console</span>.log(<span class="string">"yo???????"</span>)</span><br><span class="line">&gt;             <span class="built_in">console</span>.log(e);</span><br><span class="line">&gt;         &#125;</span><br><span class="line">&gt;         <span class="function"><span class="keyword">function</span> <span class="title">map</span>(<span class="params">lat, lot</span>) </span>&#123;</span><br><span class="line">&gt;             <span class="keyword">var</span> map = <span class="keyword">new</span> BMap.Map(<span class="string">"container"</span>);</span><br><span class="line">&gt;             <span class="comment">//创建一个地图实例，参数是元素id;</span></span><br><span class="line">&gt;             <span class="keyword">var</span> point = <span class="keyword">new</span> BMap.Point(lot, lat);</span><br><span class="line">&gt;             <span class="comment">//设置中心点坐标(经度，纬度)</span></span><br><span class="line">&gt; </span><br><span class="line">&gt;             map.centerAndZoom(point, <span class="number">15</span>);</span><br><span class="line">&gt;             <span class="comment">//地图初始化，同时设置地图展示级别</span></span><br><span class="line">&gt; </span><br><span class="line">&gt; </span><br><span class="line">&gt;             <span class="keyword">var</span> marker = <span class="keyword">new</span> BMap.Marker(point);        </span><br><span class="line">&gt;             <span class="comment">// 创建标注    </span></span><br><span class="line">&gt;             map.addOverlay(marker);                     </span><br><span class="line">&gt;             <span class="comment">// 将标注添加到地图中 </span></span><br><span class="line">&gt;             map.enableScrollWheelZoom(<span class="literal">true</span>);     </span><br><span class="line">&gt;             <span class="comment">//开启鼠标滚轮缩放</span></span><br><span class="line">&gt;         &#125;</span><br><span class="line">&gt; </span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+</blockquote>
+</div></header><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a class="post__tag__link" href="/tags/h5/">h5</a></li><li class="post__tag__item"><a class="post__tag__link" href="/tags/html/">html</a></li></ul></footer></article><section class="reward"><a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="/img/wechat.png" title="微信"></div></section><div class="comments" id="v-container"><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script>new Valine({
+  el: '#v-container',
+  appId: 'OBALSfJMkMbTcVCkNihDqCEu-gzGzoHsz',
+  appKey: 'mdaD2JiJU4lQHSA0nHNRvJOc',
+  avatar: 'retro',
+  lang: 'zh-cn',
+  placeholder: 'balabala~',
+  notify: false,
+  verify: false,
+  pageSize: 20,
+  avatarForce: false,
+  visitor: true,
+  highlight: true
+});</script></div></main><footer class="foot"><div class="foot-copy">&copy; 2019 Eynus.</div></footer><script src="/js/scroller.js"></script><script src="/js/main.js"></script></body></html>
