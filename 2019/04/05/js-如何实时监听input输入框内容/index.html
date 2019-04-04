@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="Eynus."><link rel="alternative" href="/atom.xml" title="I am Eynus." type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>js-如何实时监听input输入框内容 - I am Eynus.</title><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css"><!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]--><script src="/js/jquery-3.1.1.min.js"></script><script src="/js/fancybox/jquery.fancybox.min.js"></script></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="/">I am Eynus.</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="/archives">カタログ/（目录）</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"><time class="post__time" datetime="2019-04-04T17:03:29.000Z">April 5, 2019</time><h1 class="post__title"><a href="/2019/04/05/js-如何实时监听input输入框内容/">js-如何实时监听input输入框内容</a></h1><div class="post__main echo"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h5 id="如何实时监听input输入框的内容？"><a href="#如何实时监听input输入框的内容？" class="headerlink" title="如何实时监听input输入框的内容？"></a>如何实时监听input输入框的内容？</h5><p>假如有一个input输入框，绑定了以下监听事件，</p>
+<ol>
+<li>此时键盘按下字母a，会输出什么？</li>
+<li>按下SHIFT键会输出什么？</li>
+<li>输入框失去焦点后会怎么样？</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;input id=<span class="string">"myInput"</span> type=<span class="string">"text"</span>&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">var</span> myInput = <span class="built_in">document</span>.getElementById(<span class="string">'myInput'</span>);</span><br><span class="line"></span><br><span class="line">    myInput.addEventListener(<span class="string">'keydown'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'keydown:'</span>,myInput.value);</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    myInput.addEventListener(<span class="string">'keypress'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'keypress:'</span>,myInput.value);</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    myInput.addEventListener(<span class="string">'input'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'input:'</span>,myInput.value);</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    myInput.addEventListener(<span class="string">'keyup'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'keyup:'</span>,myInput.value);</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    myInput.addEventListener(<span class="string">'change'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'change:'</span>,myInput.value);</span><br><span class="line">    &#125;)</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>输出结果：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//按下shift并抬起，输出：</span></span><br><span class="line">keydown: </span><br><span class="line">keyup: </span><br><span class="line"><span class="comment">//按下a并抬起，输出：</span></span><br><span class="line">keydown: </span><br><span class="line">keypress: </span><br><span class="line">input: a</span><br><span class="line">keyup: a</span><br><span class="line"><span class="comment">//继续按下5并抬起，输出：</span></span><br><span class="line">keydown: a </span><br><span class="line">keypress: a </span><br><span class="line">input: a5</span><br><span class="line">keyup: a5</span><br><span class="line"><span class="comment">//此时鼠标点击其他空白处使得输入框失去焦点，输出：</span></span><br><span class="line">change: a5</span><br></pre></td></tr></table></figure></p>
+<p><strong>通过这一个例子，我们可以清楚的看到这些不同事件之间的差别：</strong></p>
+<ol>
+<li>各个事件的触发顺序</li>
+<li>keyup和input事件能获取到当前的value,而keydown和keypress获取到的是”上一次的value值”</li>
+</ol>
+<h2 id="详解"><a href="#详解" class="headerlink" title="详解"></a>详解</h2><h3 id="键盘基本事件"><a href="#键盘基本事件" class="headerlink" title="键盘基本事件"></a>键盘基本事件</h3><blockquote>
+<p>键盘中的键分为字符键(可打印)和功能键(不可打印)</p>
+</blockquote>
+<p><strong>1.keydown</strong><br>当用户按下键盘上的任意键时触发。若按住不放，会重复触发此事件。<br><strong>2.keypress</strong><br>当用户按下键盘上的字符键(即会影响文本显示的键)时触发。若按住不放，会重复触发此事件。<br><strong>3.keyup</strong><br>当用户释放键盘上的键时触发</p>
+<h4 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h4><p><strong>按下一个字符键的触发顺序：</strong></p>
+<ol>
+<li>keydown</li>
+<li>keypress</li>
+<li>keyup</li>
+</ol>
+<p><strong>按下一个非字符键的触发顺序：</strong></p>
+<ol>
+<li>keydown</li>
+<li>keyup</li>
+</ol>
+<blockquote>
+<p>注意：<br><code>keydown</code>和<code>keypress</code>都是在文本框发生变化之前触发的<br><code>keyup</code>是在文本框已经变化之后触发的.<br>所以才会出现在开头的例子中，keydown和keypress事件中获取的value值比实际最新的值“慢一拍”的情况。</p>
+</blockquote>
+<h3 id="表单事件"><a href="#表单事件" class="headerlink" title="表单事件"></a>表单事件</h3><blockquote>
+<p>仅罗列出与input输入监听有关的事件</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>事件名称</th>
+<th>定义</th>
+<th>注意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>onblur</td>
+<td>事件会在对象失去焦点时发生。</td>
+<td>一般用于表单输入框。</td>
+</tr>
+<tr>
+<td>onfocus</td>
+<td>onfocus 事件在对象获得焦点时发生。</td>
+<td>通常用于 <code>input</code>,<code>select</code>和<code>a</code>.</td>
+</tr>
+<tr>
+<td>onchange</td>
+<td>事件会在域的内容改变时发生。</td>
+<td>当内容改变且当前元素失去焦点时，可用于<code>input</code>,<code>select</code>和 <code>textarea</code></td>
+</tr>
+<tr>
+<td>oninput</td>
+<td>事件在用户输入时触发。</td>
+<td>与onchange相比，不需要失去焦点，在元素值发生变化时立即触发。用于<code>input</code>,<code>select</code>或 <code>textarea</code></td>
+</tr>
+</tbody>
+</table>
+<p>因此输入框发生的事件流程如图：</p>
+<p>focus  -&gt; keydown -&gt; input -&gt; keyup  -&gt; change -&gt; blur  </p>
+<p>​                     <img src="http://blog.chanke.xyz/wp-content/uploads/2019/03/11.png" alt="输入框发生的事件流程"></p>
+<h3 id="言归正传"><a href="#言归正传" class="headerlink" title="言归正传"></a>言归正传</h3><h4 id="那么如果在监听input输入框并作校验时，根据不同的需求，我们可以使用不同的事件。"><a href="#那么如果在监听input输入框并作校验时，根据不同的需求，我们可以使用不同的事件。" class="headerlink" title="那么如果在监听input输入框并作校验时，根据不同的需求，我们可以使用不同的事件。"></a>那么如果在监听input输入框并作校验时，根据不同的需求，我们可以使用不同的事件。</h4><ol>
+<li><p>如果需要时时监听用户的输入：<br>· 可以使用<code>keyup</code>事件<br>   <strong>缺点</strong>:当你复制粘贴值进去的时候，或者浏览器自动记住的值输入进去的时候，keyup事件不会触发<br>· 可以使用<code>input</code>事件<br>   <strong>缺点</strong>：兼容性问题：IE之外的大多浏览器都支持，至于IE9以下浏览器，可以使用<code>onpropertychange</code>事件。(<a href="https://www.cnblogs.com/sydeveloper/p/3794079.html" title="也存在一些区别" target="_blank" rel="noopener">也存在一些区别</a>)</p>
+</li>
+<li><p>如果不需要时时监听，用户输入完毕即可<br>· 那么可以使用<code>change</code>事件，<code>blur</code>事件。</p>
+</li>
+</ol>
+<p><a href="https://www.jianshu.com/p/8f839f558319" title="参考链接:详解键盘事件" target="_blank" rel="noopener">参考链接:详解键盘事件</a></p>
+</div></header><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a class="post__tag__link" href="/tags/每日分享/">每日分享</a></li><li class="post__tag__item"><a class="post__tag__link" href="/tags/js/">js</a></li></ul></footer></article><section class="reward"><a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="/img/wechat.png" title="微信"></div></section><div class="comments" id="v-container"><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script>new Valine({
+  el: '#v-container',
+  appId: 'OBALSfJMkMbTcVCkNihDqCEu-gzGzoHsz',
+  appKey: 'mdaD2JiJU4lQHSA0nHNRvJOc',
+  avatar: 'retro',
+  lang: 'zh-cn',
+  placeholder: 'balabala~',
+  notify: false,
+  verify: false,
+  pageSize: 20,
+  avatarForce: false,
+  visitor: true,
+  highlight: true
+});</script></div></main><footer class="foot"><div class="foot-copy">&copy; 2019 Eynus.</div></footer><script src="/js/scroller.js"></script><script src="/js/main.js"></script></body></html>
