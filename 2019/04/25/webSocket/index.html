@@ -1,0 +1,48 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="Eynus."><link rel="alternative" href="/atom.xml" title="I am Eynus." type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>webSocket - I am Eynus.</title><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css"><!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]--><script src="/js/jquery-3.1.1.min.js"></script><script src="/js/fancybox/jquery.fancybox.min.js"></script></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="/">I am Eynus.</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="/archives">カタログ/（目录）</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"><time class="post__time" datetime="2019-04-25T11:10:24.000Z">April 25, 2019</time><h1 class="post__title"><a href="/2019/04/25/webSocket/">webSocket</a></h1><div class="post__main echo"><h2 id="webSocket双向通信"><a href="#webSocket双向通信" class="headerlink" title="webSocket双向通信"></a>webSocket双向通信</h2><h3 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h3><p>协议：HTTP/HTTPS协议</p>
+<p>版本：HTTP/1.0  HTTP/1.1 (连接-处理-断开 vs  连接-保持连接-不再有请求后断开)</p>
+<p>HTTP协议：由客户端发起请求，服务器响应请求。服务端不能主动联系客户端。</p>
+<blockquote>
+<p><strong>场景举例：聊天室</strong></p>
+</blockquote>
+<p><strong>轮询(短)</strong> : 用户A请求服务器，询问是否用户B回复消息(每隔1s发送ajax请求)</p>
+<p>这个过程浪费时间，浪费宽带。</p>
+<p><strong>轮询(长)</strong>：用户A向服务器发送数据，没有数据时，该响应一直在服务器端等待。在设置的响应时间后仍未收到数据会返回。</p>
+<p>对于类似于聊天室的双向通信，更好的<strong>解决方案</strong> ——&gt; 使用webSocket实现<strong>浏览器与服务器的双向通信</strong>。</p>
+<hr>
+<h3 id="二、webSocket"><a href="#二、webSocket" class="headerlink" title="二、webSocket"></a>二、webSocket</h3><h5 id="1-概念"><a href="#1-概念" class="headerlink" title="1.概念"></a>1.概念</h5><ol>
+<li>http协议只可以实现客户端到服务器的单向通信，有了webSocket就可以实现双向通信，即服务器可以<strong>主动</strong>向客户端发送数据。</li>
+<li>webSocket是一种与服务器进行<strong>全双工、双向通信</strong>的信道。与其他跨越方案(如CORS,JSONP,Comet)不同，webSocket不使用HTTP协议，而使用一种<strong>自定义的协议</strong>。这种协议专门为<strong>快速传输小数据</strong>设计，具有<strong>速度</strong>上的优势。</li>
+<li>webSocket提供<strong>API</strong>,来创建和管理webSocket<strong>连接</strong>，<strong>发送</strong>，<strong>接收</strong>数据</li>
+</ol>
+<h5 id="2-优点"><a href="#2-优点" class="headerlink" title="2.优点"></a>2.优点</h5><ol>
+<li>不用频繁创建TCP请求及销毁请求，减少网络带宽资源的占用</li>
+<li>减少服务器的负担，节省服务器资源</li>
+<li>服务器和浏览器都可以主动传输数据给对方</li>
+</ol>
+<h5 id="3-通过HTTP搭桥"><a href="#3-通过HTTP搭桥" class="headerlink" title="3.通过HTTP搭桥"></a>3.通过HTTP搭桥</h5><ol>
+<li><p>它是一个新的协议，和HTTP没有关系，只不过为了兼容现有浏览器的握手规范借用了HTTP的协议完成握手。(握手使用的是http协议)</p>
+<p>###### </p>
+</li>
+</ol>
+<h5 id="4-建立连接"><a href="#4-建立连接" class="headerlink" title="4.建立连接"></a>4.建立连接</h5><p>建立连接的前提：浏览器和服务器都要接受webSocket协议</p>
+<p>当Web应用程序调用new WebSocket(url)接口时，Browser就开始了与地址为url的WebServer建立握手连接的过程。</p>
+<ol>
+<li>Browser与WebSocket服务器通过TCP握手<strong>建立连接</strong>，如果这个建立连接失败，那么后面的过程就不会执行，web应用程序将受到错误消息通知。</li>
+<li>在TCP建立连接成功后，Browser通过http协议传送WebSocket支持的版本号，协议的字版本号，原始地址，主机地址等一系列字段给服务器端。</li>
+<li>WebSocket服务器收到Browser发送来的请求后，如果数据包数据和格式正确，客户端和服务器端的协议版本号匹配等，就接受本次握手连接，并给出相应的数据回复，同样回复的数据包也是采用http协议传输。</li>
+<li>Browser收到服务器回复的数据包后，如果数据包内容、格式都没有问题，就表示本次连接成功，触发<strong>onopen</strong>消息，此时Web开发者就可以在此时通过<strong>send</strong>接口向服务器发送数据。否则，握手连接失败，Web应用程序会收到<strong>onerror</strong>消息，并且能知道连接失败的原因。</li>
+</ol>
+<h5 id="5-连接、发送、接收数据"><a href="#5-连接、发送、接收数据" class="headerlink" title="5.连接、发送、接收数据"></a>5.连接、发送、接收数据</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="comment">//浏览器和服务器接受协议</span></span></span><br><span class="line"><span class="javascript">        <span class="comment">//创建一个链接：与"ws://echo.websocket.org"建议连接</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> Socket = <span class="keyword">new</span> WebSocket(<span class="string">"ws://echo.websocket.org"</span>);<span class="comment">//传入：供测试用的接口</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="comment">//成功连接之后触发</span></span></span><br><span class="line"><span class="javascript">        Socket.onopen = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            Socket.send(<span class="string">'test'</span>)<span class="comment">//连接成功后发送数据</span></span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="javascript">        <span class="comment">//收到数据触发</span></span></span><br><span class="line"><span class="javascript">        Socket.onmessage = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(e.data);<span class="comment">//打印数据：test</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">            Socket.close();<span class="comment">//主动关闭连接，关闭后不能再发送数据</span></span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="javascript">        <span class="comment">//与服务器断开连接后触发</span></span></span><br><span class="line"><span class="javascript">        Socket.onclose = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="string">'已经断开'</span>);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="javascript">        <span class="comment">//连接失败后触发</span></span></span><br><span class="line"><span class="javascript">        Socket.onerror = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="string">'发生了错误'</span>);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></div></header><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a class="post__tag__link" href="/tags/网络/">网络</a></li></ul></footer></article><section class="reward"><a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="/img/wechat.png" title="微信"></div></section><div class="comments" id="v-container"><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script>new Valine({
+  el: '#v-container',
+  appId: 'OBALSfJMkMbTcVCkNihDqCEu-gzGzoHsz',
+  appKey: 'mdaD2JiJU4lQHSA0nHNRvJOc',
+  avatar: 'retro',
+  lang: 'zh-cn',
+  placeholder: 'balabala~',
+  notify: false,
+  verify: false,
+  pageSize: 20,
+  avatarForce: false,
+  visitor: true,
+  highlight: true
+});</script></div></main><footer class="foot"><div class="foot-copy">&copy; 2019 Eynus.</div></footer><script src="/js/scroller.js"></script><script src="/js/main.js"></script></body></html>

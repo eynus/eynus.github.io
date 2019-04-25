@@ -1,0 +1,37 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="Eynus."><link rel="alternative" href="/atom.xml" title="I am Eynus." type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>前端性能你会监控哪些数据 - I am Eynus.</title><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css"><!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]--><script src="/js/jquery-3.1.1.min.js"></script><script src="/js/fancybox/jquery.fancybox.min.js"></script></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="/">I am Eynus.</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="/archives">カタログ/（目录）</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"><time class="post__time" datetime="2019-04-25T11:15:05.000Z">April 25, 2019</time><h1 class="post__title"><a href="/2019/04/25/前端性能你会监控哪些数据/">前端性能你会监控哪些数据</a></h1><div class="post__main echo"><h5 id="首先推荐两个检查页面性能的地址"><a href="#首先推荐两个检查页面性能的地址" class="headerlink" title="首先推荐两个检查页面性能的地址"></a>首先推荐两个检查页面性能的地址</h5><ol>
+<li><a href="https://www.webpagetest.org/" title="webpagetest" target="_blank" rel="noopener">webpagetest</a></li>
+<li><a href="https://developers.google.com/speed/pagespeed/insights/?hl=zh-CN" title="pagespeed" target="_blank" rel="noopener">pagespeed</a></li>
+</ol>
+<h3 id="为什么要做性能监控"><a href="#为什么要做性能监控" class="headerlink" title="为什么要做性能监控"></a>为什么要做性能监控</h3><p>对于公司来说，性能在一定程度上与利益直接相关。<br>根本原因在于<strong>性能影响了用户体验</strong>。加载的延迟、操作的卡顿等都会影响用户的使用体验。尤其是移动端，用户对页面响应延迟和连接中断的容忍度很低。想象一下你拿着手机打开一个网页想看到某个信息却加载半天的心情，你很可能选择直接离开换一个网页。谷歌也将页面加载速度作为SEO的一个权重。</p>
+<h3 id="哪些点需要监控"><a href="#哪些点需要监控" class="headerlink" title="哪些点需要监控"></a>哪些点需要监控</h3><p>我们可以分为以下几个点来进行监控</p>
+<ol>
+<li>白屏时间</li>
+<li>首屏时间</li>
+<li>用户可操作时间</li>
+<li>总下载时间</li>
+</ol>
+<h5 id="白屏时间"><a href="#白屏时间" class="headerlink" title="白屏时间"></a>白屏时间</h5><p>白屏时间是用户首次看到内容的时间，也叫做首次渲染时间，chrome高版本有firstPaintTime接口来获取这个耗时，但大部分浏览器并不支持，必须想其他办法来监测。<br>仔细观察WebPageTest视图分析发现，白屏时间出现在头部外链资源加载完附近，因为浏览器只有加载并解析完头部资源才会真正渲染页面。基于此我们可以通过获取头部资源加载完的时刻来近似统计白屏时间。</p>
+<p><strong>代码理解</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">"en"</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=<span class="string">"UTF-8"</span>&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        <span class="keyword">var</span> start_time = +<span class="keyword">new</span> <span class="built_in">Date</span>;<span class="comment">//测试时间起点，实际统计起点</span></span><br><span class="line">    &lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">    &lt;script src="js"&gt;&lt;/</span>script&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        <span class="keyword">var</span> end_time = +<span class="keyword">new</span> <span class="built_in">Date</span>;<span class="comment">//时间终点</span></span><br><span class="line">        <span class="keyword">var</span> headtime = end_time - start_time;<span class="comment">//头部资源加载时间</span></span><br><span class="line">        <span class="built_in">console</span>.log(headtime);</span><br><span class="line">    &lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>head&gt;</span><br><span class="line">&lt;<span class="regexp">/html&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="首屏时间"><a href="#首屏时间" class="headerlink" title="首屏时间"></a>首屏时间</h5><p>首屏时间的统计比较复杂，因为涉及图片等多种元素及异步渲染等方式。观察加载试图可发现，影响首屏的主要因素是图片的加载。通过统计首屏内图片的加载时间便可以获取首屏渲染完成的时间。<br>统计流程如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">首屏位置调用 API 开始统计 ——&gt;</span><br><span class="line">绑定首屏内所有图片的load事件 ——&gt; 页面加载完后判断图片是否在首屏内，找出加载最慢的一张</span><br><span class="line">获得首屏时间</span><br></pre></td></tr></table></figure></p>
+<h5 id="可操作时间"><a href="#可操作时间" class="headerlink" title="可操作时间"></a>可操作时间</h5><p>用户可操作默认可以统计<code>domready</code>时间，因为通常会在这时候绑定事件操作。对于使用了模块化异步加载的JS可以在代码中去主动标记重要JS的加载时间，这也是产品指标的统计方式。</p>
+<h5 id="总下载时间"><a href="#总下载时间" class="headerlink" title="总下载时间"></a>总下载时间</h5><p>总下载时间默认可以统计<code>onload</code>时间，这样可以统计同步加载的资源全部加载完的耗时。如果页面中存在很多异步渲染，可以将异步渲染全部完成的时间作为总下载时间。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
+<li>白屏时间指head内资源加载完成的时间</li>
+<li>首屏时间指可视区域最后一张图片加载完成的时间</li>
+<li>可操作时间指<code>Document.onready</code>时间</li>
+<li>总下载时间指<code>Document.onload</code>时间</li>
+</ol>
+</div></header><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a class="post__tag__link" href="/tags/网络/">网络</a></li></ul></footer></article><section class="reward"><a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="/img/wechat.png" title="微信"></div></section><div class="comments" id="v-container"><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script>new Valine({
+  el: '#v-container',
+  appId: 'OBALSfJMkMbTcVCkNihDqCEu-gzGzoHsz',
+  appKey: 'mdaD2JiJU4lQHSA0nHNRvJOc',
+  avatar: 'retro',
+  lang: 'zh-cn',
+  placeholder: 'balabala~',
+  notify: false,
+  verify: false,
+  pageSize: 20,
+  avatarForce: false,
+  visitor: true,
+  highlight: true
+});</script></div></main><footer class="foot"><div class="foot-copy">&copy; 2019 Eynus.</div></footer><script src="/js/scroller.js"></script><script src="/js/main.js"></script></body></html>

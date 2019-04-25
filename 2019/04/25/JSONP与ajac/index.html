@@ -1,0 +1,67 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="Eynus."><link rel="alternative" href="/atom.xml" title="I am Eynus." type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>JSONP与ajax - I am Eynus.</title><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css"><!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]--><script src="/js/jquery-3.1.1.min.js"></script><script src="/js/fancybox/jquery.fancybox.min.js"></script></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="/">I am Eynus.</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="/archives">カタログ/（目录）</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"><time class="post__time" datetime="2019-04-25T11:13:42.000Z">April 25, 2019</time><h1 class="post__title"><a href="/2019/04/25/JSONP与ajac/">JSONP与ajax</a></h1><div class="post__main echo"><blockquote>
+<p> ajax的核心   ： 通过XmlHttpRequest获取非本页内容，<br> jsonp的核心 ： 动态添加标签来调用服务器提供的js脚本。</p>
+</blockquote>
+<hr>
+<h3 id="Ajax"><a href="#Ajax" class="headerlink" title="Ajax"></a>Ajax</h3><blockquote>
+<p>全称为 Asynchronous JavaScript and XML (异步的JavaScript和XML)，意思就是用JavaScript执行异步网络请求。</p>
+</blockquote>
+<h5 id="为什么要有Ajax"><a href="#为什么要有Ajax" class="headerlink" title="为什么要有Ajax?"></a>为什么要有Ajax?</h5><p>如果没有ajax技术，加载数据时只能实现整页刷新。<br><em>(这是Web的运作原理：一次HTTP请求对应一个页面。)</em></p>
+<p>试想一下，在微博主页，鼠标移动到动态流中的某博主头像上就能自动出现一个小方框显示加载他的粉丝数，关注数等个人信息————这就是用Ajax技术实现的，实现了只加载这个小框的信息而页面中的其他内容保持不变的“局部刷新”。<br>而如果没有Ajax,你仅仅想要看这个博主的粉丝数，还需要点击到他的主页，进而自动加载整个页面（包括其他你本不需要的数据资源），造成了资源的浪费。</p>
+<h5 id="JSON格式的数据"><a href="#JSON格式的数据" class="headerlink" title="JSON格式的数据"></a>JSON格式的数据</h5><p>JSON: JavaScript Object Notation(JavaScript 对象表示法)<br>JSON:一个对象，其中键值对都是用双引号引起来(单引号不行),值为number或者boolean类型时可以不需要引号。<br>| 方法      | 说明                           |<br>| ——— | —————————— |<br>| parse     | 将字符串转换为 JavaScript 对象 |<br>| stringify | 将 JavaScript 对象转换为字符串 |</p>
+<h5 id="如何封装一个Ajax"><a href="#如何封装一个Ajax" class="headerlink" title="如何封装一个Ajax?"></a>如何封装一个Ajax?</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ajax</span>(<span class="params">method, url, data,callback, flag</span>) </span>&#123;<span class="comment">//方式，地址，回调函数，是否异步</span></span><br><span class="line">	<span class="comment">//需要实现的ajax..</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>需要一个Ajax对象来执行操作<br>在现代浏览器上写Ajax主要依靠<code>XMLHttpRequest</code>对象<br>兼容性考虑，IE6及以下浏览器使用<code>ActiveXObject(&#39;Microsoft.XMLHttp&#39;)</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.生成一个Ajax对象    兼容XMLHttpRequest：ie7- 使用ActiveXObject</span></span><br><span class="line">   <span class="keyword">if</span> (<span class="built_in">window</span>.XMLHttpRequest) &#123;</span><br><span class="line">       xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">       xhr = <span class="keyword">new</span> ActiveXObject(<span class="string">'Microsoft.XMLHttp'</span>);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对ajax对象初始化：设置请求方式，请求地址</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">xhr.open(method, url, flag);<span class="comment">//初始化：请求方式get/post,请求的地址,同步/异步</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//如果请求方式是POST还需要需要设置请求头中的内容类型为一个固定值</span></span><br><span class="line">xhr.setRequestHeader(<span class="string">'content-type'</span>,<span class="string">'application/x-www/form-urlencoded'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>method传入时需要是大写，所以如果获取的是小写的get或post需要统一转化，使用<code>toUpperCase()</code>方法。<br>get请求多次向同一个url发送请求：数据会被缓存到服务器。为了确保每次都是向服务器请求而不是使用浏览器缓存需设置一个唯一参数time使得url唯一化</p>
+<ol start="3">
+<li><p>发送请求</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">xhr.send()</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果是POST请求，将data数据放入请求主体中，即xhr.send(data)</span></span><br><span class="line"><span class="comment">//如果是GET请求，将data数据拼接到第2步中的参数url中，这里只需:xhr.send()</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>监听数据<br>readystate代表ajax请求的状态<br>| readyState | 说明               |<br>| ———- | —————— |<br>| 0          | (初始)未调用send   |<br>| 1          | (载入)已调用send   |<br>| 2          | (载入完成)接收响应 |<br>| 3          | (交互)解析响应     |<br>| 4          | (完成)解析完成     |</p>
+</li>
+</ol>
+<p>ajax对象有一个事件<code>onreadystatechange</code>：当<code>readyState</code>发生改变时会触发。<br>当请求解析完成，客户端会收到：</p>
+<ol>
+<li>xhr.status：请求的状态码(200代表成功)</li>
+<li>xhr.responseText:请求的响应(即获取到的数据)</li>
+</ol>
+<p><strong>因此如何判断ajax请求成功？</strong><br>事件<code>onreadystatechange</code>触发  &amp;&amp;  <code>readyState</code>=4  &amp;&amp; <code>xhr.status</code>=200<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//4.监听数据</span></span><br><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//readyState == 4代表解析完成，我们可以拿到数据了</span></span><br><span class="line">    <span class="keyword">if</span> (xhr.readyState == <span class="number">4</span>) &#123;</span><br><span class="line">        <span class="comment">//返回成功的状态码200</span></span><br><span class="line">        <span class="keyword">if</span> (xhr.status == <span class="number">200</span>) &#123;</span><br><span class="line">            callback(xhr.responseText)</span><br><span class="line"><span class="comment">//执行回调函数，传入返回的数据</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h3><p>Ajax由于同源策略的限制，只能向同源的url发送请求。那么如何向那些不同源的url请求数据呢？<br><strong>JSONP是实现跨域请求的一种方法。</strong></p>
+<blockquote>
+<p>jsonp的原理:就是利用浏览器可以动态地插入一段js并执行的特点完成的。</p>
+</blockquote>
+<p>如下所示，通过标签中的src属性，可以引入外部资源，不受同源策略限制。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">"https://cdn.bootcss.com/jquery/3.3.1/jquery.js"</span>&gt;&lt;/script&gt;</span><br><span class="line"><span class="comment">//引入外部js库文件</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>因此可以利用这一点，我们试着去实现跨域的请求。</strong></p>
+<ol>
+<li><p>创建一个script标签，在其src中填入请求的url+回调函数的名称+其他后台所需字段(从这看出，JSONP是GET类型请求)</p>
+</li>
+<li><p>本地自定义回调函数<code>callbackName</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">callbackName</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">'请求的数据是：'</span>,data)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>请求的url中的内容正好是一段js代码，形如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//https://suggest.taobao.com/sug?&amp;callback=callbackName&amp;q=keyword 页面生成的数据</span></span><br><span class="line">callbackName(&#123;<span class="string">"result"</span>:[]&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>这些内容会动态插入到script标签中，因此就相当于执行了该回调函数，而传入的这个参数就是请求获取的结果。</p>
+<blockquote>
+<p>注：JQuery封装了Ajax，且把JSONP封装到了Ajax方法中。大大简化了Ajax的使用。</p>
+</blockquote>
+</div></header><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a class="post__tag__link" href="/tags/网络/">网络</a></li></ul></footer></article><section class="reward"><a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="/img/wechat.png" title="微信"></div></section><div class="comments" id="v-container"><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script>new Valine({
+  el: '#v-container',
+  appId: 'OBALSfJMkMbTcVCkNihDqCEu-gzGzoHsz',
+  appKey: 'mdaD2JiJU4lQHSA0nHNRvJOc',
+  avatar: 'retro',
+  lang: 'zh-cn',
+  placeholder: 'balabala~',
+  notify: false,
+  verify: false,
+  pageSize: 20,
+  avatarForce: false,
+  visitor: true,
+  highlight: true
+});</script></div></main><footer class="foot"><div class="foot-copy">&copy; 2019 Eynus.</div></footer><script src="/js/scroller.js"></script><script src="/js/main.js"></script></body></html>
