@@ -1,0 +1,57 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="Eynus."><link rel="alternative" href="/atom.xml" title="I am Eynus." type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>认识vue-cli - I am Eynus.</title><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css"><!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]--><script src="/js/jquery-3.1.1.min.js"></script><script src="/js/fancybox/jquery.fancybox.min.js"></script></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="/">I am Eynus.</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="/archives">カタログ/（目录）</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"><time class="post__time" datetime="2019-05-08T15:34:09.000Z">May 8, 2019</time><h1 class="post__title"><a href="/2019/05/08/vue-cli/">认识vue-cli</a></h1><div class="post__main echo"><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><h6 id="vue-cli是vue-js的脚手架，使用它来快速创建项目，能够集成Babel、ESLint-css预处理器，等项目的各个配置。起到一个前端自动化构建工具的作用，承包了脏活累活。"><a href="#vue-cli是vue-js的脚手架，使用它来快速创建项目，能够集成Babel、ESLint-css预处理器，等项目的各个配置。起到一个前端自动化构建工具的作用，承包了脏活累活。" class="headerlink" title="vue-cli是vue.js的脚手架，使用它来快速创建项目，能够集成Babel、ESLint,css预处理器，等项目的各个配置。起到一个前端自动化构建工具的作用，承包了脏活累活。"></a>vue-cli是vue.js的脚手架，使用它来快速创建项目，能够集成Babel、ESLint,css预处理器，等项目的各个配置。起到一个前端自动化构建工具的作用，承包了脏活累活。</h6><h3 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h3><h4 id="1-安装vue-cli"><a href="#1-安装vue-cli" class="headerlink" title="1.安装vue-cli"></a>1.安装vue-cli</h4><p>要求node -v 版本大于8.9，如果小于8.9，需要卸载重装</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g @vue/cli</span><br></pre></td></tr></table></figure>
+<p><img src="/img/52.png" alt></p>
+<h4 id="2-检查安装是否成功"><a href="#2-检查安装是否成功" class="headerlink" title="2.检查安装是否成功"></a>2.检查安装是否成功</h4><p>如果version&lt;3.0需要卸载重装 （<code>npm uninstall vue-cli -g</code>）</p>
+<p><img src="/img/53.png" alt></p>
+<h4 id="3-使用"><a href="#3-使用" class="headerlink" title="3.使用."></a>3.使用.</h4><ol>
+<li>进入某个文件夹</li>
+<li><code>vue create [项目名称(小写用-隔开)]</code></li>
+</ol>
+<ol start="3">
+<li><p>配置</p>
+<ol>
+<li><p>工具选择(空格键操作)——&gt; babel/linter——&gt;Enter</p>
+</li>
+<li><p>代码规范——&gt; 选择仅一个错误——&gt;Enter</p>
+</li>
+<li><p>linter特性——&gt;默认——&gt;Enter</p>
+</li>
+<li><p>独立的配置文件——&gt;Enter</p>
+</li>
+<li><p>以上配置选择进行保存——&gt;Y——&gt;保存为一个名字</p>
+<p><img src="/img/54.png" alt></p>
+<p>​                                <img src="/img/55.png" alt></p>
+</li>
+</ol>
+</li>
+<li><p>安装完毕，启动。</p>
+<p>​                            </p>
+<ol>
+<li><p><code>cd [vue文件夹]</code></p>
+</li>
+<li><p><code>npm run serve</code></p>
+</li>
+<li><p>localhost:8080打开</p>
+<p><img src="/img/56.png" alt></p>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="图形化界面-管理项目"><a href="#图形化界面-管理项目" class="headerlink" title="图形化界面-管理项目"></a>图形化界面-管理项目</h3><h4 id="1-命令"><a href="#1-命令" class="headerlink" title="1.命令"></a>1.命令</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue ui</span><br></pre></td></tr></table></figure>
+<h4 id="2-打开-localhost-8000-gt-导入你的项目文件-gt-即可配置和管理"><a href="#2-打开-localhost-8000-gt-导入你的项目文件-gt-即可配置和管理" class="headerlink" title="2.打开 localhost:8000 -&gt; 导入你的项目文件-&gt;即可配置和管理"></a>2.打开 localhost:8000 -&gt; 导入你的项目文件-&gt;即可配置和管理</h4><p><img src="/img/57.png" alt></p>
+<p><img src="/img/58.png" alt></p>
+<p><img src="/img/59.png" alt></p>
+</div></header><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a class="post__tag__link" href="/tags/newVue/">newVue</a></li></ul></footer></article><section class="reward"><a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="/img/wechat.png" title="微信"></div></section><div class="comments" id="v-container"><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script>new Valine({
+  el: '#v-container',
+  appId: 'OBALSfJMkMbTcVCkNihDqCEu-gzGzoHsz',
+  appKey: 'mdaD2JiJU4lQHSA0nHNRvJOc',
+  avatar: 'retro',
+  lang: 'zh-cn',
+  placeholder: 'balabala~',
+  notify: false,
+  verify: false,
+  pageSize: 20,
+  avatarForce: false,
+  visitor: true,
+  highlight: true
+});</script></div></main><footer class="foot"><div class="foot-copy">&copy; 2019 Eynus.</div></footer><script src="/js/scroller.js"></script><script src="/js/main.js"></script></body></html>
