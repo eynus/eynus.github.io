@@ -1,0 +1,96 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="Eynus."><link rel="alternative" href="/atom.xml" title="I am Eynus." type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>常见报错方式和代码编写方式 - I am Eynus.</title><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css"><!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]--><script src="/js/jquery-3.1.1.min.js"></script><script src="/js/fancybox/jquery.fancybox.min.js"></script></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="/">I am Eynus.</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="/archives">カタログ/（目录）</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"><time class="post__time" datetime="2019-06-27T10:01:33.000Z">June 27, 2019</time><h1 class="post__title"><a href="/2019/06/27/常见报错方式和代码编写方式/">常见报错方式和代码编写方式</a></h1><div class="post__main echo"><h2 id="javascript报错信息"><a href="#javascript报错信息" class="headerlink" title="javascript报错信息"></a>javascript报错信息</h2><ul>
+<li><p>Uncaught ReferenceError:</p>
+<p>a is not defined</p>
+<ul>
+<li>解释：<code>a</code>未定义。</li>
+<li>解决方案：一般情况下是敲错变量名，否则先定义<code>a</code>再使用它。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>Uncaught TypeError:</p>
+<p>Cannot read property ‘a’ of undefined</p>
+<ul>
+<li>解释：<code>a</code>的父级未定义。</li>
+<li>解决方案：一般情况下是敲错属性链；要确保<code>a</code>的父级是个对象。</li>
+<li>举例：Uncaught TypeError:Cannot set property ‘onclick’ of undefined.说明onclick前面的变量是空的，没有正确获取到dom元素，应该去源代码中向上查找dom的获取是否有误。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>Uncaught TypeError:</p>
+<p>a is not a function</p>
+<ul>
+<li>解释：<code>a</code>不是个函数，而你想触发它。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>Access to XMLHttpRequest at ‘xxxxx’ from origin ‘null’ has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, https.</p>
+<ul>
+<li>解释：跨域</li>
+<li>解决方案：采取跨域解决方案CORS JSONP等等。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>  一般出现了错误，在控制台中找到相应错误的行数，根据错误信息(看不懂就google翻译)去源代码中查看是否编写错误。</p>
+<p>  如涉及变量操作，请把涉及到的变量都打印出来查看是否为空,是否符合预期，如果不符，再追本溯源一层一层想上查找。</p>
+<h2 id="骚操作"><a href="#骚操作" class="headerlink" title="骚操作"></a>骚操作</h2><p>【以下的绝大部分做法的本质是因为懒 ·🐽·】</p>
+<h3 id="判断省略括号"><a href="#判断省略括号" class="headerlink" title="判断省略括号"></a>判断省略括号</h3><p>不建议初学者使用，一不小心就坑到自己 <em>(:з」∠)</em></p>
+<p>正常版</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(love_me) &#123;</span><br><span class="line">  love_you_too(); <span class="comment">// love_me为真才会执行</span></span><br><span class="line">&#125;</span><br><span class="line">yo(); <span class="comment">// 永远都会执行</span></span><br></pre></td></tr></table></figure>
+<p>懒癌版</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(love_me)</span><br><span class="line">  love_you_too(); <span class="comment">// love_me为真才会执行</span></span><br><span class="line">yo(); <span class="comment">// 永远都会执行</span></span><br></pre></td></tr></table></figure>
+<p>掩耳盗铃版</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(love_me)</span><br><span class="line">  love_you_too(); <span class="comment">// love_me为真才会执行</span></span><br><span class="line">  yo(); <span class="comment">// 缩进对齐也没用，依然永远都会执行（python表示不服）</span></span><br></pre></td></tr></table></figure>
+<h3 id="三元运算符"><a href="#三元运算符" class="headerlink" title="三元运算符"></a>三元运算符</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">条件 ? 满足时执行 : 否则执行</span><br></pre></td></tr></table></figure>
+<p>正常版</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(love_me) &#123;</span><br><span class="line">  love_you_too();</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  emmmm();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>懒癌版</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">love_me ? love_you_too() : emmmm();</span><br></pre></td></tr></table></figure>
+<h3 id="懒癌判断函数"><a href="#懒癌判断函数" class="headerlink" title="懒癌判断函数"></a>懒癌判断函数</h3><p>正常版</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">greet</span>(<span class="params">love_me</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(love_me) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'Love you too!'</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'Emmmm...'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>懒癌版</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">greet</span>(<span class="params">love_me</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(love_me) </span><br><span class="line">    <span class="keyword">return</span> <span class="string">'Love you too!'</span>; <span class="comment">// 如果love_me为真，此处直接返回，后面的通通不会执行</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="string">'Emmmm...'</span>; <span class="comment">// 否则就会一直执行到这一步</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="ES5中设置传参默认值"><a href="#ES5中设置传参默认值" class="headerlink" title="ES5中设置传参默认值"></a>ES5中设置传参默认值</h3><p>正常版</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> 问好(<span class="params">姓名</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(!姓名) &#123;</span><br><span class="line">    姓名 = <span class="string">'王花花'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">'你好'</span> + 姓名;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>懒癌版</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> 问好(<span class="params">姓名</span>) </span>&#123;</span><br><span class="line">  姓名 = 姓名 || <span class="string">'王花花'</span>; <span class="comment">// 如果传了姓名就用，没传默认设为"王花花"</span></span><br><span class="line">  <span class="keyword">return</span> <span class="string">'你好'</span> + 姓名;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="批量声明变量"><a href="#批量声明变量" class="headerlink" title="批量声明变量"></a>批量声明变量</h3><p>正常版</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a;</span><br><span class="line"><span class="keyword">var</span> b;</span><br><span class="line"><span class="keyword">var</span> c;</span><br></pre></td></tr></table></figure>
+<p>懒癌版</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a, b, c;</span><br></pre></td></tr></table></figure>
+<p>懒癌洁癖实用主义综合症患者（逃</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a</span><br><span class="line">  , b</span><br><span class="line">  , c</span><br><span class="line">  ;</span><br></pre></td></tr></table></figure>
+<h3 id="批量变量赋值"><a href="#批量变量赋值" class="headerlink" title="批量变量赋值"></a>批量变量赋值</h3><p>正常版</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> b = a;</span><br><span class="line"><span class="keyword">var</span> c = b;</span><br></pre></td></tr></table></figure>
+<p>懒癌版</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>, b = a, c = b;</span><br></pre></td></tr></table></figure>
+<p>懒癌洁癖实用主义综合症患者</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a, b, c;</span><br><span class="line">a = b = c = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="自触发函数-IIFE"><a href="#自触发函数-IIFE" class="headerlink" title="自触发函数 (IIFE)"></a>自触发函数 (IIFE)</h3><p>一般用于隔离作用域，一个文件写一个，防止一不小心污染全局变量。</p>
+<p>正常版</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">启动();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> 启动(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="meta">  'use strict'</span>;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>懒癌版</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="meta">  'use strict'</span>;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">可以这样理解</span></span><br><span class="line"><span class="comment">先用括号把这个匿名函数包起来：</span></span><br><span class="line"><span class="comment">(匿名函数)</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">然后执行：</span></span><br><span class="line"><span class="comment">(匿名函数)();</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>懒癌晚期版</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">!<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="meta">  'use strict'</span>;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;();</span><br></pre></td></tr></table></figure>
+<p>懒癌领悟版</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="comment">// 行首的分号是干嘛的？为了给前一个依赖文件擦屁股。js文件压缩时会把多个文件连接起来并去掉空格断行，分号是为了防止和前面的代码粘连在一起出错。</span></span><br><span class="line"><span class="meta">  'use strict'</span>;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure></div></header><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a class="post__tag__link" href="/tags/js/">js</a></li></ul></footer></article><section class="reward"><a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="/img/wechat.png" title="微信"></div></section><div class="comments" id="v-container"><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script>new Valine({
+  el: '#v-container',
+  appId: 'OBALSfJMkMbTcVCkNihDqCEu-gzGzoHsz',
+  appKey: 'mdaD2JiJU4lQHSA0nHNRvJOc',
+  avatar: 'retro',
+  lang: 'zh-cn',
+  placeholder: 'balabala~',
+  notify: false,
+  verify: false,
+  pageSize: 20,
+  avatarForce: false,
+  visitor: true,
+  highlight: true
+});</script></div></main><footer class="foot"><div class="foot-copy">&copy; 2019 Eynus.</div></footer><script src="/js/scroller.js"></script><script src="/js/main.js"></script></body></html>

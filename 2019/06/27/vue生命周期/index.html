@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="Eynus."><link rel="alternative" href="/atom.xml" title="I am Eynus." type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>vue生命周期 - I am Eynus.</title><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css"><!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]--><script src="/js/jquery-3.1.1.min.js"></script><script src="/js/fancybox/jquery.fancybox.min.js"></script></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="/">I am Eynus.</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="/archives">カタログ/（目录）</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"><time class="post__time" datetime="2019-06-27T10:00:06.000Z">June 27, 2019</time><h1 class="post__title"><a href="/2019/06/27/vue生命周期/">vue生命周期</a></h1><div class="post__main echo"><p><strong>生命周期</strong></p>
+<p>首先生命周期就是hook函数，简单理解就是在什么什么之前，在什么什么之后，在vue中分为8个阶段:创建前/后、载入前/后、更新前/后、销毁前/后。</p>
+<table>
+<thead>
+<tr>
+<th>钩子函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>beforeCreated</td>
+<td>*此时数据观测和初始化事件还未开始(因此获取不到data数据)</td>
+</tr>
+<tr>
+<td>created</td>
+<td>*完成数据观测，属性和方法的运算，初始化事件，$el属性还没有显示出来</td>
+</tr>
+<tr>
+<td>beforeMount</td>
+<td>*挂载开始前被调用，相关的render函数首次被调用。此时实例已完成:编译模板，把data里面的数据和模板生成html。注意此时还没有挂载html到页面上。</td>
+</tr>
+<tr>
+<td>mounted</td>
+<td>*el被新创建的vm.$el替换并挂载到实例上后调用该函数。此时实例已完成：用上面编译好的html替换el属性指向的DOM对象。完成模板中的html渲染到html页面中。此过程中进行ajax交互。</td>
+</tr>
+<tr>
+<td>beforeUpdate</td>
+<td>在数据更新之前调用，发生在虚拟DOM重新渲染和打补丁之前。可以在该钩子函数中进一步更改状态，不会触发附加的重渲染过程。</td>
+</tr>
+<tr>
+<td>updated</td>
+<td>在由于数据更改导致的虚拟DOM重新渲染和打补丁之后调用。调用时，组件DOM已经更新，所以可以执行依赖于DOM的操作。然而在大多数情况下，应该避免在此期间更改状态，因为这可能会导致无限循环。该钩子在服务器渲染期间不被调用。</td>
+</tr>
+<tr>
+<td>beforeDestroy</td>
+<td>在实例销毁之前调用。实例仍然完全可用。</td>
+</tr>
+<tr>
+<td>destroyed</td>
+<td>在实例销毁之后调用。调用后，所有的事件监听器会被移除，所有的子实例也会被销毁。该钩子在服务器渲染期间不被调用。</td>
+</tr>
+</tbody>
+</table>
+<p>ps:*代表首次页面加载会触发。mounted说明dom渲染完毕。</p>
+<p>看一下vue源码，帮助更好理解和记忆。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">**vue源码：经整理过的创建一个Vue实例的执行过程**</span><br><span class="line"></span><br><span class="line">完整创建一个vue实例  (vm是vue实例)</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue()</span><br><span class="line"></span><br><span class="line">	调用<span class="keyword">this</span>._init()</span><br><span class="line"></span><br><span class="line">		initLifecycle(vm)		<span class="comment">// 往实例上注入属性：$parent,$root,$children,$refs,..</span></span><br><span class="line"></span><br><span class="line">		initEvents(vm)			<span class="comment">// 往实例上注入事件：_events _hasHookEvent</span></span><br><span class="line"></span><br><span class="line">		initRender(vm)			<span class="comment">//往实例上注入$createElement</span></span><br><span class="line"></span><br><span class="line">		callHook(vm,<span class="string">'beforeCreate'</span>)<span class="comment">//调用钩子函数。如果options中有这个beforeCreate，就执行handler</span></span><br><span class="line"></span><br><span class="line">		initInjections(vm)		<span class="comment">//初始化注入，定义响应defineReactve:使用defineProperty将传入的data,props的属性进行响应依赖,</span></span><br><span class="line"></span><br><span class="line">		initState(vm)			<span class="comment">//初始化props,methods,data computed,watch   用观察者模式监听</span></span><br><span class="line"></span><br><span class="line">		initProvide(vm)	</span><br><span class="line"></span><br><span class="line">		callHook(vm,<span class="string">'created'</span>)		<span class="comment">//此时，对象创建完毕</span></span><br><span class="line"></span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">		如果传入el，执行vm.$mount(el)	<span class="comment">//没有render函数？用template/外面的html编译，最后执行mount</span></span><br><span class="line"></span><br><span class="line">		callHook(vm,<span class="string">'beforeMount'</span>)	 <span class="comment">//编译完成，需要挂载</span></span><br><span class="line"></span><br><span class="line">		vm._update( _render)		<span class="comment">//挂载真实的dom</span></span><br><span class="line"></span><br><span class="line">		callHook(vm,<span class="string">'mounted'</span>)		<span class="comment">//触发mounted,挂载完成</span></span><br></pre></td></tr></table></figure></p>
+</div></header><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a class="post__tag__link" href="/tags/vue/">vue</a></li></ul></footer></article><section class="reward"><a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="/img/wechat.png" title="微信"></div></section><div class="comments" id="v-container"><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script>new Valine({
+  el: '#v-container',
+  appId: 'OBALSfJMkMbTcVCkNihDqCEu-gzGzoHsz',
+  appKey: 'mdaD2JiJU4lQHSA0nHNRvJOc',
+  avatar: 'retro',
+  lang: 'zh-cn',
+  placeholder: 'balabala~',
+  notify: false,
+  verify: false,
+  pageSize: 20,
+  avatarForce: false,
+  visitor: true,
+  highlight: true
+});</script></div></main><footer class="foot"><div class="foot-copy">&copy; 2019 Eynus.</div></footer><script src="/js/scroller.js"></script><script src="/js/main.js"></script></body></html>

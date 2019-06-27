@@ -1,0 +1,20 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="Eynus."><link rel="alternative" href="/atom.xml" title="I am Eynus." type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>如何理解[]！==“0” - I am Eynus.</title><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css"><!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]--><script src="/js/jquery-3.1.1.min.js"></script><script src="/js/fancybox/jquery.fancybox.min.js"></script></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="/">I am Eynus.</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="/archives">カタログ/（目录）</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"><time class="post__time" datetime="2019-06-27T10:03:49.000Z">June 27, 2019</time><h1 class="post__title"><a href="/2019/06/27/0/">如何理解[]！==“0”</a></h1><div class="post__main echo"><p><img src="http://blog.chanke.xyz/wp-content/uploads/2019/06/微信图片_20190614195642.jpg" alt></p>
+<blockquote>
+<p>所以为什么<code>&quot;0&quot; == []</code>是<code>false</code>?</p>
+</blockquote>
+<p>在进行<code>==</code>运算时，需要记住几条规则。(<a href="http://es5.github.io/#x11.9.3" title="详见ES5标准-11.9.3" target="_blank" rel="noopener">详见ES5标准-11.9.3</a>)<br><img src="http://blog.chanke.xyz/wp-content/uploads/2019/06/微信图片_20190614200019.png" alt></p>
+<p><strong>解释 -&gt;</strong><br>1.<code>[] == 0</code>等价于 <code>ToPrimitive([]) == 0</code>等价于 <code>[].valueOf().toString() == 0</code>等价于<code>&#39;&#39;==0</code>,对照第四条规则，将字符串转化为数字类型，得到<code>0==0</code>,因此为<code>true</code><br>2.<code>[] == &#39;0&#39;</code>等价于 <code>ToPrimitive([]) == &#39;0&#39;</code>等价于等价于<code>&#39;&#39;==&#39;0&#39;</code>,等号两边类型相同，参考第一条中d规则，<code>&#39;&#39;!==&#39;0&#39;</code>,因此为<code>false</code><br>(<a href="https://sinaad.github.io/xfe/2016/04/15/ToPrimitive/" title="了解toPrimitive" target="_blank" rel="noopener">了解toPrimitive</a>)</p>
+</div></header></article><section class="reward"><a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="/img/wechat.png" title="微信"></div></section><div class="comments" id="v-container"><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script>new Valine({
+  el: '#v-container',
+  appId: 'OBALSfJMkMbTcVCkNihDqCEu-gzGzoHsz',
+  appKey: 'mdaD2JiJU4lQHSA0nHNRvJOc',
+  avatar: 'retro',
+  lang: 'zh-cn',
+  placeholder: 'balabala~',
+  notify: false,
+  verify: false,
+  pageSize: 20,
+  avatarForce: false,
+  visitor: true,
+  highlight: true
+});</script></div></main><footer class="foot"><div class="foot-copy">&copy; 2019 Eynus.</div></footer><script src="/js/scroller.js"></script><script src="/js/main.js"></script></body></html>
